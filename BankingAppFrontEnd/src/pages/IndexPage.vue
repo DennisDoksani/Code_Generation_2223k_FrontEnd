@@ -5,6 +5,7 @@
       src="~assets/quasar-logo-vertical.svg"
       style="width: 200px; height: 200px"
     >
+    <h1>Fuck this shit man</h1>
   </q-page>
 </template>
 
