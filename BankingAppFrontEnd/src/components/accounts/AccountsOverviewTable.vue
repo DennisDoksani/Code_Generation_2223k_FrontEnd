@@ -6,23 +6,22 @@
     v-model:pagination="pagination"
     :columns="columns"
   >
-
-    <template v-slot:top-right>
+    <template v-slot:top-left>
       <q-select v-model="accountType" :options="accountTypes" label="Account Type"></q-select>
     </template>
 
     <template v-slot:body-cell-action="props">
+
       <q-btn
-        :color="props.row.account.isActive ? 'negative' : 'positive'"
+        :color="props.row.isActive ? 'negative' : 'positive'"
+        :label="props.row.isActive ? 'Disable' : 'Enable'"
         @click="toggleAccountStatus(props.row)"
-        :label="props.row.account.isActive ? 'Disable' : 'Enable'"
       ></q-btn>
     </template>
   </q-table>
 </template>
 
 <script>
-
 import axios from "/axios-auth.js";
 
 export default {
@@ -32,18 +31,20 @@ export default {
       accounts: [],
       pagination: {
         page: 1,
-        rowsPerPage: 5
+        rowsPerPage: 50
       },
       columns: [
         { name: "iban", required: true, label: "IBAN", align: "left", field: "iban" },
         {
-          name: "accountHolder",
+          name: "name",
           required: true,
           label: "Account Holder",
           align: "left",
-          field: "accountHolder"
+          field: row=>row.accountHolder.firstName+" "+row.accountHolder.lastName
         },
-        { name: "isActive", required: true, label: "Active", align: "left", field: "isActive" },
+        { name: "isActive", required: true, label: "Active",
+          align: "left", field: row => row.isActive ? 'Yes' : 'No'
+        },
         {
           name: "accountType",
           required: true,
@@ -52,55 +53,47 @@ export default {
           field: "accountType"
         },
         {
-          name: "accountHolder.transactionLimit",
+          name: "transactionLimit",
           required: true,
           label: "Transaction Limit",
           align: "left",
-          field: "accountHolder.transactionLimit"
+          field: row => row.accountHolder.transactionLimit.toFixed(2)
         },
         {
           name: "accountBalance",
           required: true,
           label: "Account Balance",
           align: "left",
-          field: "accountBalance"
+          field: row => row.accountBalance.toFixed(2)
         },
         {
-          name: "accountHolder.dayLimit",
+          name: "dayLimit",
           required: true,
           label: "Day Limit",
           align: "left",
-          field: "accountHolder.dayLimit"
+          field: row => row.accountHolder.dayLimit.toFixed(2)
         },
-
+        { name: "action", required: true, label: "Action", align: "left", field: "action" }
       ],
-      accountType: "Savings",
+      accountType: "",
       accountTypes: ["Savings", "Current"]
     };
   },
   mounted() {
     this.fetchAccounts();
   },
-  methods: {
+  methods:{
     toggleAccountStatus(row) {
       console.log(row);
-    },
-    onButtonClick(row) {
-      // TODO: Implement button click logic for each row
     },
     fetchAccounts() {
       axios.get("/accounts")
         .then(response => {
           this.accounts = response.data;
-          console.log(this.accounts);
-
-      });
+        });
     }
-
   }
 };
-
-
 </script>
 
 <style scoped>
