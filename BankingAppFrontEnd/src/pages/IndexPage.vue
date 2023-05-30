@@ -1,8 +1,11 @@
 <template>
   <q-page class="flex flex-center">
-      <h1>BJRD Bank</h1>
-    <h4>This Is Home Page </h4>
+    <div class="column">
+      <h1 class="flex flex-center">BJRD Bank</h1>
+      <h4 class="flex flex-center">This Is Home Page </h4>
+    </div>
   </q-page>
+  
 </template>
 
 <script>
