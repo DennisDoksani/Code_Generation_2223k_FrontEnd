@@ -115,9 +115,9 @@ export default {
       }).catch(error => {
         error.response.status === 404 ? this.searchingAccountNotfound = true :
           this.searchingAccountNotfound = false;
-        if(error.response.status === 401 )
+        if (error.response.status === 401)
           this.$emit('unAuthorised');
-        if(error.response.status === 403 )
+        if (error.response.status === 403)
           this.$emit('forbidden');
         this.$emit('loading', false);
       });

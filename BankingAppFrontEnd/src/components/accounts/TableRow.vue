@@ -22,13 +22,30 @@
     ></q-btn>
 
   </td>
+  <div v-if="dialogVisible">
+    <UpdatingAccountDetails :selectedIban="selectedIban"
+                            @closeDialogue="onDialogueClose"
+                            @updatedAccountSuccessfully="onUpdatedSuccessFully"
+                            v-if="selectedIban.length !==0">
+    </UpdatingAccountDetails>
+  </div>
 </template>
 
 <script>
 import axios from '/axios-auth.js';
+import UpdatingAccountDetails from 'components/accounts/UpdatingAccountDetails.vue';
 
 export default {
   name: 'TableRow',
+  components: {
+    UpdatingAccountDetails,
+  },
+  data() {
+    return {
+      dialogVisible: false,
+      selectedIban: '',
+    };
+  },
   props: {
     account: {
       type: Object,
@@ -47,7 +64,8 @@ export default {
       });
     },
     updateAccountDetails(iban) {
-      // this.$router.push({name: 'AccountDetails', params: {iban: iban}});
+      this.dialogVisible = true;
+      this.selectedIban = iban;
     },
     sendUpdateRequest(isActive, iban) {
       axios.post('/accounts/accountStatus/' + iban, {
@@ -55,7 +73,7 @@ export default {
       }).then(() => {
         this.$q.notify({
           color: isActive ? 'negative' : 'positive',
-          message: 'Account status ' +(isActive ? 'deactivated' : 'activated')+ ' successfully',
+          message: 'Account status ' + (isActive ? 'deactivated' : 'activated') + ' successfully',
         });
         this.$emit('UpdatedStatusSuccessFully');
       }).catch((error) => {
@@ -64,6 +82,14 @@ export default {
           message: error.data.message, //Todo: verify
         });
       });
+    },
+    onUpdatedSuccessFully(){
+      this.onDialogueClose();
+      this.$emit('UpdatedStatusSuccessFully');
+    },
+    onDialogueClose() {
+      this.dialogVisible = false;
+      this.selectedIban = '';
     },
   },
 };
