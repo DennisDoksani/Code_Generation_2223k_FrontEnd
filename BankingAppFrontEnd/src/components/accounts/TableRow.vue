@@ -9,8 +9,16 @@
   <td class="text-right">
     <q-btn
       :color="account.isActive ? 'negative' : 'positive'"
-      :label="account.isActive ? 'Disable' : 'Enable'"
+      :label="account.isActive ? 'Deactivate' : 'Activate'"
       @click="updateStatus(account.isActive, account.iban)"
+      class="q-ma-md"
+    ></q-btn>
+
+    <q-btn
+      color="primary"
+      label="Edit"
+      @click="updateAccountDetails(account.iban)"
+      class="q-ma-md"
     ></q-btn>
 
   </td>
@@ -37,6 +45,9 @@ export default {
       }).onOk(() => {
         this.sendUpdateRequest(isActive, iban);
       });
+    },
+    updateAccountDetails(iban) {
+      // this.$router.push({name: 'AccountDetails', params: {iban: iban}});
     },
     sendUpdateRequest(isActive, iban) {
       axios.post('/accounts/accountStatus/' + iban, {

@@ -22,7 +22,7 @@
         <th class="text-right">Transaction Limit</th>
         <th class="text-right">Account Balance</th>
         <th class="text-right">Day Limit</th>
-        <th class="text-right">Action</th>
+        <th class="q-pa-r-md">Action</th>
       </tr>
       </thead>
       <tbody>
@@ -59,6 +59,7 @@
 <script>
 import axios from '/axios-auth.js';
 import TableRow from 'components/accounts/TableRow.vue';
+import {AccountTypes} from 'app/ConstantsContainer';
 
 export default {
   name: 'AccountsOverviewTable',
@@ -73,7 +74,7 @@ export default {
         rowsPerPage: 10,
       },
       accountType: '',
-      accountTypes: ['Savings', 'Current'], // Hardcoded for now
+      accountTypes: AccountTypes,
       search: '',
       currentUrl: '',
       defaultAccountUrl: '/accounts',
@@ -100,6 +101,7 @@ export default {
     fetchAccounts() {
       const limit = this.pagination.rowsPerPage;
       const offset = (this.pagination.page - 1) * limit;
+      this.$emit('loading', true);
 
       axios.get(this.currentUrl, {
         params: {
@@ -109,6 +111,7 @@ export default {
       }).then(response => {
         this.accounts = response.data;
         this.searchingAccountNotfound = false;
+        this.$emit('loading', false);
       }).catch(error => {
         error.response.status === 404 ? this.searchingAccountNotfound = true :
           this.searchingAccountNotfound = false;
@@ -116,6 +119,7 @@ export default {
           this.$emit('unAuthorised');
         if(error.response.status === 403 )
           this.$emit('forbidden');
+        this.$emit('loading', false);
       });
     },
     searchBoxTextChanged() {
