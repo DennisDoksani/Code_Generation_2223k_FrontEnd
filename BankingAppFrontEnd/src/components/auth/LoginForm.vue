@@ -35,6 +35,6 @@
   
   <style>
   .q-card {
-    width: 360px;
+    width: 100%
   }
   </style>
