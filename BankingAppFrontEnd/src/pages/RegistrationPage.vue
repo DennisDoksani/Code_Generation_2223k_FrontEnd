@@ -7,7 +7,6 @@
     </div>
   </template>
   
-  
   <script>
   import AccountsOverviewTable from "components/accounts/AccountsOverviewTable.vue";
   export default {
