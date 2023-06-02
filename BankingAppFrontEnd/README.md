@@ -1,8 +1,22 @@
-# BankingAppFrontEnd (bankingappfrontend)
+# Banking App Code Gen 2223 
 
-Front end project of code generation 2223
+## IT2A Grp 1
+### Bijay, Dennis, Ruben, Joshua
 
-## Install the dependencies
+## Login Credentials
+### Employee (Employee auth, no own bank account)
+Email: employee@seed.com
+Password: password
+### Customer (Customer auth, has bank accounts)
+Email: customer@seed.com
+Password: password
+### Employee-Customer (Employee auth, with their own bank accounts)
+Email: employeecustomer@seed.com
+Password: password
+
+## Quasar instructions
+
+### Install the dependencies
 ```bash
 yarn
 # or
@@ -14,7 +28,6 @@ npm install
 quasar dev
 ```
 
-
 ### Lint the files
 ```bash
 yarn lint
@@ -22,15 +35,12 @@ yarn lint
 npm run lint
 ```
 
-
 ### Format the files
 ```bash
 yarn format
 # or
 npm run format
 ```
-
-
 
 ### Build the app for production
 ```bash
