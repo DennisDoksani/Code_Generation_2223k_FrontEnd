@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import axios from "/axios-auth.js";
+import axios from "/axios-basis.js";
 
 export default {
   name: "AccountsOverviewTable",

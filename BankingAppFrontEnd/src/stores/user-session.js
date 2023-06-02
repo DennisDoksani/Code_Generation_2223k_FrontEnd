@@ -8,15 +8,12 @@ export const useUserSessionStore = defineStore('usersession', {
         jwt: '',
         id: 0,
         email: '',
-        firstName: '',
-        lastName: '',
-        userType: '',
+        name: '',
     }),
     getters: {
         isLoggedIn: (state) => state.jwt !== '' ,
-        getUserFullName: (state) => state.firstName + ' ' + state.lastName,
-        getId: (state) => state.id,
-        getStoredUserType: (state) => state.userType,
+        getUserFullName: (state) => state.name,
+        getId: (state) => state.id
     },
     actions: {
         login(email, password) {
@@ -33,17 +30,16 @@ export const useUserSessionStore = defineStore('usersession', {
                     this.name = response.data.name;
 
                     sessionStorage["jwt"] = this.jwt;
-                    sessionStorage["id"] = this.id;
-                    sessionStorage["email"] = this.email;
-                    sessionStorage["name"] = this.name;
+                    // sessionStorage["id"] = this.id;
+                    // sessionStorage["email"] = this.email;
+                    // sessionStorage["name"] = this.name;
 
                     axios.defaults.headers.common['Authorization'] = this.jwt;
                     console.log(response);
                     resolve();
                 })
                 .catch(error => {
-                    console.log(error);
-                    reject(error.response);
+                    reject(error);
                 });
             });  
         },

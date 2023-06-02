@@ -1,11 +1,16 @@
+import BankingAppLayout from 'layouts/BankingAppLayout.vue'
+import IndexPage from 'pages/IndexPage.vue'
+import AccountsOverviewPage from 'pages/AccountsOverviewPage.vue'
+import RegistrationPage from 'pages/RegistrationPage.vue'
 
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/BankingAppLayout.vue'),
+    component: () => BankingAppLayout,
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: '/accounts',component: () => import('pages/AccountsOverviewPage.vue') },
+      { path: '', component: () => IndexPage },
+      { path: '/accounts',component: () => AccountsOverviewPage },
+      { path: '/registration',component: () => RegistrationPage }
     ]
   },
 
