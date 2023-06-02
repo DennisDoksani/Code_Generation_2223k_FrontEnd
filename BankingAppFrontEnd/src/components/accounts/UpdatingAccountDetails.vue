@@ -63,10 +63,13 @@
                 />
               </div>
               <div class="col-6">
-                <q-select outlined
-                          v-model="selectedAccount.isActive"
-                          :options="AccountStatus"
-                          label="Account Status"
+                <q-select
+                  outlined
+                  v-model="selectedAccount.isActive"
+                  :options="accountStatus"
+                  label="Account Status"
+                  :option-label="item => item.label"
+                  :option-value="item => item.value"
                 />
               </div>
             </div>
@@ -119,7 +122,7 @@ export default {
           transactionLimit: '',
         },
       },
-      AccountStatus: AccountStatus,
+      accountStatus: AccountStatus,
     };
   },
   computed: {
@@ -150,7 +153,9 @@ export default {
     },
     updateAccountClicked() {
       this.showProgressBar = true;
-      this.sendPutRequest();
+      setTimeout(() => {
+        this.sendPutRequest();
+      }, 2000);
     },
     sendPutRequest() {
       axios.put('/accounts/' + this.selectedIban, this.selectedAccount).then(() => {

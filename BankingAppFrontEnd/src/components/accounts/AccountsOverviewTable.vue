@@ -3,7 +3,10 @@
     <div style="display: flex; align-items: center;">
       <div style="flex: 1;">
         <q-input v-model="search" label="Search By IBAN" dense class="search-input"
-                 @update:model-value="searchBoxTextChanged"></q-input>
+                 @update:model-value="searchBoxTextChanged"
+                 lazy-rules
+                 :rules="[val => val.length<19 || 'Iban cannot be more than 18 characters']"
+        />
       </div>
       <div>
         <q-select borderless v-model="accountType" :options="accountTypes" label="Sort Accounts"
