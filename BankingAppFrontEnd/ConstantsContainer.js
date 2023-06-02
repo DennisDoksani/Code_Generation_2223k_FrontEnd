@@ -1,2 +1,2 @@
-export const AccountTypes = ['Savings','Current']
+export const AccountTypes = ['Current','Savings',]
 
