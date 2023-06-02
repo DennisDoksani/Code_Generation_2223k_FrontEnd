@@ -32,7 +32,6 @@ export default {
   setup () {
     return {
       slide: ref('style'),
-      lorem: 'Bijay'
     }
   },
   name: 'AccountCarousalList',

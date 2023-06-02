@@ -63,7 +63,7 @@
 <script>
 import axios from '/axios-basis.js';
 import TableRow from 'components/accounts/TableRow.vue';
-import {AccountTypes} from 'app/ConstantsContainer';
+import {AccountTypes} from 'app/ConstantsContainer.js';
 
 export default {
   name: 'AccountsOverviewTable',
