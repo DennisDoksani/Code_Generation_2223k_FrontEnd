@@ -11,14 +11,13 @@
       padding
       infinite
       arrows
-      height="300px"
-      class=" text-white shadow-1 rounded-borders"
+      height="220px"
+      class="text-white shadow-1 rounded-borders q-pb-lg-lg"
     >
-      <q-carousel-slide
-        v-for="account in accounts"
-        :key="account.iban"
-      >
-        <AccountCard :account="account"></AccountCard>
+      <q-carousel-slide v-for="(account, index) in accounts" :key="index" :name="index">
+        <div class="q-flex q-items-center q-justify-center">
+          <AccountCard :account="account" class="q-pt-lg-xl"></AccountCard>
+        </div>
       </q-carousel-slide>
     </q-carousel>
   </div>
@@ -29,10 +28,10 @@ import {ref} from 'vue';
 import AccountCard from './AccountCard.vue';
 
 export default {
-  setup () {
+  setup() {
     return {
-      slide: ref('style'),
-    }
+      slide: ref(0),
+    };
   },
   name: 'AccountCarousalList',
   props: {
@@ -40,21 +39,30 @@ export default {
       type: Array,
       required: true,
     },
+
   },
   components: {
     AccountCard,
   },
   data() {
     return {
-
+      selectedAccount: {
+        type: Object,
+      },
     };
   },
-  methods: {
-
+  methods: {},
+  mounted() {
+    console.log(this.accounts);
+    this.selectedAccount = this.accounts[0];
   },
 };
 </script>
 
 <style scoped>
+.q-carousel .q-carousel-slide {
+  border: none;
+}
+
 
 </style>

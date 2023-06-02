@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <q-card>
       <q-card-section class="q-pa-md d-flex flex-column align-center">
         <div class="row q-col-gutter-md">
@@ -13,11 +13,11 @@
         <div class="row q-col-gutter-md q-pt-xs">
           <div class="col-6">
             <div class="text-subtitle">Transaction Limit:</div>
-            <div>20</div>
+            <div class="text-bold">€{{account.accountHolder.transactionLimit.toFixed(2)}}</div>
           </div>
           <div class="col-6">
             <div class="text-subtitle">Absolute Limit:</div>
-            <div>€{{ account.absoluteLimit.toFixed(2) }}</div>
+            <div class="text-bold">€{{ account.absoluteLimit.toFixed(2) }}</div>
           </div>
         </div>
       </q-card-section>
@@ -39,6 +39,9 @@ export default {
     },
   },
   methods: {},
+  mounted() {
+    console.log(this.account);
+  }
 };
 </script>
 
