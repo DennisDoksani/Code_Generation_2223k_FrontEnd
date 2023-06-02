@@ -1,4 +1,8 @@
 import axios from "axios";
 const instance = axios.create({
   baseURL:"http://localhost/"});
+instance.defaults.headers.common["Authorization"] = "Bearer " +
+  'eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJqb3NoQG1mLmNvbSIsImF1dGgiOlsiUk9MRV9FTVBMT1lFRSIsIlJPTEVfQ1VTVE9NRVIiXSwiaWQiOjEsImlhdCI6MTY4NTU1MTQzNiwiZXhwIjoxNjg1OTExNDM2fQ.XdmMaqP3Vnf7y029PSFzoBREV1go0jN_L9BdwfKtXIklyzvFywpD4pZc5AjL3qtE_ir5zbm07cmHpReTrcYDMuiDmj_0iRg8hoZh9nNvT3a75wyCBFNUYjVXgGaBH7WFlu6BKzs8ehOcOCnihthqHV5_zr3X-AWBUKlQAB3kdKO1VW4Y7cVNe1NEbhvDrj3REZRhGCdzNrG6Cwg1-rPBKQMSt5QSdfF_6C-3gWhGmRQagX4cIKCHD6fu90U4uoh92cnsU3Tfz_7GUqams9TIlvReJ-uwZ0_0W3WQL1rD14kgvJESmuMUizdzX3SCVyFYRPoGSSks35eZpilrVsK17g';
+
 export default instance;
+//
