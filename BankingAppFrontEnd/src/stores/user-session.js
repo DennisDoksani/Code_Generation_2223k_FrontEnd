@@ -29,14 +29,13 @@ export const useUserSessionStore = defineStore('usersession', {
                 .then(response => {
                     this.jwt = response.data.jwt;
                     this.id = response.data.id;
-                    //this.userType = response.data.userType;
+                    this.email = response.data.email;
+                    this.name = response.data.name;
 
                     sessionStorage["jwt"] = this.jwt;
                     sessionStorage["id"] = this.id;
                     sessionStorage["email"] = this.email;
-                    sessionStorage["firstName"] = this.firstName;
-                    sessionStorage["lastName"] = this.lastName;
-                    //sessionStorage["userType"] = this.userType;
+                    sessionStorage["name"] = this.name;
 
                     axios.defaults.headers.common['Authorization'] = this.jwt;
                     console.log(response);
