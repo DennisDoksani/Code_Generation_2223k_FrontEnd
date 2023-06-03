@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import axios from '/axios-auth.js';
+// import axios from '/axios-auth.js';
 import TableRow from 'components/accounts/TableRow.vue';
 import {AccountTypes} from 'app/ConstantsContainer';
 
