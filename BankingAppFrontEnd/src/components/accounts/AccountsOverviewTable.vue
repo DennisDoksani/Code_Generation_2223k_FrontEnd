@@ -22,6 +22,7 @@
         <th class="text-right">Full Name</th>
         <th class="text-right">Active</th>
         <th class="text-right">Account Type</th>
+        <th class="text-right">Absolute Limit</th>
         <th class="text-right">Transaction Limit</th>
         <th class="text-right">Account Balance</th>
         <th class="text-right">Day Limit</th>
@@ -60,9 +61,9 @@
 </template>
 
 <script>
-import axios from "/axios-basis.js";
+import axios from '/axios-basis.js';
 import TableRow from 'components/accounts/TableRow.vue';
-import {AccountTypes} from 'app/ConstantsContainer';
+import {AccountTypes} from 'app/ConstantsContainer.js';
 
 export default {
   name: 'AccountsOverviewTable',

@@ -63,14 +63,7 @@
                 />
               </div>
               <div class="col-6">
-                <q-select
-                  outlined
-                  v-model="selectedAccount.isActive"
-                  :options="accountStatus"
-                  label="Account Status"
-                  :option-label="item => item.label"
-                  :option-value="item => item.value"
-                />
+                <q-toggle outlined v-model="selectedAccount.isActive" label="Account Status" />
               </div>
             </div>
             <div class="row q-col-gutter-md q-mb-md">
@@ -112,7 +105,9 @@ export default {
         lastName: '',
         accountType: '',
         accountBalance: '',
-        isActive: '',
+        isActive: {
+          type: Boolean,
+        },
         absoluteLimit: '',
         accountHolder: {
           userId: '',
@@ -122,17 +117,7 @@ export default {
           transactionLimit: '',
         },
       },
-      accountStatus: AccountStatus,
     };
-  },
-  computed: {
-    getAccountStatus() {
-      if (this.selectedAccount.isActive === true) {
-        return 'Active';
-      } else {
-        return 'Deactivate';
-      }
-    },
   },
   props: {
     selectedIban: {
