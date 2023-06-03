@@ -1,5 +1,5 @@
 <template>
-  <div class="q-gutter-y-md" style="max-width: 600px">
+  <div class="q-gutter-y-md" style="width: inherit">
     <q-card>
       <q-card-section class="q-pa-md d-flex justify-between" style="height: 160px">
         <div v-if="loading" class="flex justify-center items-center">
