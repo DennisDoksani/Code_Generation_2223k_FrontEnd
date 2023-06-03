@@ -3,9 +3,10 @@
   <td class="text-right">{{ account.accountHolder.firstName }} {{ account.accountHolder.lastName }}</td>
   <td class="text-right">{{ account.isActive ? 'Yes' : 'No' }}</td>
   <td class="text-right">{{ account.accountType }}</td>
-  <td class="text-right">{{ account.accountHolder.transactionLimit.toFixed(2) }}</td>
-  <td class="text-right">{{ account.accountBalance.toFixed(2) }}</td>
-  <td class="text-right">{{ account.accountHolder.dayLimit.toFixed(2) }}</td>
+  <td class="text-right">€ {{ account.absoluteLimit.toFixed(2) }}</td>
+  <td class="text-right">€ {{ account.accountHolder.transactionLimit.toFixed(2) }}</td>
+  <td class="text-right">€ {{ account.accountBalance.toFixed(2) }}</td>
+  <td class="text-right">€ {{ account.accountHolder.dayLimit.toFixed(2) }}</td>
   <td class="text-right">
     <q-btn
       :color="account.isActive ? 'negative' : 'positive'"
@@ -32,7 +33,7 @@
 </template>
 
 <script>
-import axios from '/axios-auth.js';
+import axios from '/axios-basis.js';
 import UpdatingAccountDetails from 'components/accounts/UpdatingAccountDetails.vue';
 
 export default {
