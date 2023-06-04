@@ -13,7 +13,8 @@ export const useUserSessionStore = defineStore('usersession', {
     getters: {
         isLoggedIn: (state) => state.jwt !== '' ,
         getUserFullName: (state) => state.name,
-        getId: (state) => state.id
+        getId: (state) => state.id,
+        getEmail: (state) => state.email
     },
     actions: {
         login(email, password) {

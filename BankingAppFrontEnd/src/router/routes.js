@@ -10,7 +10,7 @@ const routes = [
     children: [
       { path: '', component: () => IndexPage },
       { path: '/accounts',component: () => AccountsOverviewPage },
-      { path: '/registration',component: () => RegistrationPage }
+      { path: '/registration',component: () => RegistrationPage },
       {path: '/logged',component: () => import('pages/LoggedUserPage.vue')},
     ]
   },
