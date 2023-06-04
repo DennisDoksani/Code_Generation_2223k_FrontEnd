@@ -1,11 +1,11 @@
 <template>
   <div class="q-gutter-y-md" style="width: inherit">
     <q-card>
-      <q-card-section class="q-pa-md d-flex justify-between" style="height: 160px">
-        <div v-if="loading" class="flex justify-center items-center">
-          <q-spinner-gears size="90px"></q-spinner-gears>
+      <q-card-section class="q-pa-md d-flex justify-between" style="min-height:160px; max-height: 300px">
+        <div v-if="loading " class="flex justify-center items-center">
+          <q-spinner-gears size="90px" ></q-spinner-gears>
         </div>
-        <div class="row" v-else>
+        <div class="row" v-else-if="accountHolderName.length!==0">
           <div class="col-6 text-left" style="margin-top: -40px">
             <h4>{{ accountHolderName }}</h4>
             <h6 class="text-subtitle1" style="margin-top: -40px;">
@@ -21,7 +21,7 @@
               v-model="dayLimitLeftPercentage"
               size="100px"
               :thickness="0.2"
-              color="blue"
+              color="orange"
               center-color="grey-8"
               track-color="transparent"
               readonly
@@ -30,6 +30,10 @@
             </q-knob>
           </div>
         </div>
+        <div v-else class="flex justify-center items-center">
+          <q-spinner-gears size="90px" ></q-spinner-gears>
+        </div>
+
       </q-card-section>
 
       <q-separator class="q-pt-lg-xl" style="margin-top: -25px" />
@@ -80,17 +84,25 @@
 import {AccountTypes} from 'app/ConstantsContainer';
 import AccountCarousalList from 'components/HomePage/AccountCarousalList.vue';
 import axios from '/axios-basis.js';
+import {useUserSessionStore} from 'stores/userSession.js'
 
 export default {
   name: 'AccountsTabPanels',
+  setup() {
+    return {
+      userSessionStore: useUserSessionStore(),
+    };
+  },
   components: {
     AccountCarousalList,
   },
   methods: {
     fetchAccountsOfUser() {
       return new Promise((resolve, reject) => {
-        axios.get('/accounts/user/' + this.loggedUser).then((response) => {
-          this.accounts = response.data;
+        axios.get('/accounts/user/' + this.userSessionStore.getEmail).then((response) => {
+          this.accounts = response.data.accounts;
+          this.accountHolderName = response.data.accountHolder.firstName + ' ' + response.data.accountHolder.lastName;
+          this.loggedUserTransactionLimit= response.data.accountHolder.transactionLimit;
           resolve();
         }).catch((error) => {
           console.log(error);
@@ -109,8 +121,8 @@ export default {
       activeTab: 'current',
       AccountTypes: AccountTypes,
       accounts: null,
-      accountHolderName: 'Joshua' + ' MF',
-      loggedUser: 'josh@mf.com', //Todo: Replace with logged in user
+      accountHolderName:'',
+      loggedUserEmail: 'employeecustomer@seed.com',
       dayLimitLeft: 500,
       loading: true,
       dayLimitLeftPercentage: 40,
