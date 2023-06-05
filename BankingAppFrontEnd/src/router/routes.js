@@ -2,6 +2,7 @@ import BankingAppLayout from 'layouts/BankingAppLayout.vue'
 import IndexPage from 'pages/IndexPage.vue'
 import AccountsOverviewPage from 'pages/AccountsOverviewPage.vue'
 import RegistrationPage from 'pages/RegistrationPage.vue'
+import LoggedUserPage from 'pages/LoggedUserPage.vue'
 
 const routes = [
   {
@@ -11,7 +12,7 @@ const routes = [
       { path: '', component: () => IndexPage },
       { path: '/accounts',component: () => AccountsOverviewPage },
       { path: '/registration',component: () => RegistrationPage },
-      {path: '/logged',component: () => import('pages/LoggedUserPage.vue')},
+      { path: '/logged',component: () => LoggedUserPage }
     ]
   },
 
