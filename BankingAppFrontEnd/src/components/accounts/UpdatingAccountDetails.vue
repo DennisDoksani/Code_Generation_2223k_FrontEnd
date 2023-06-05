@@ -41,7 +41,6 @@
                          type="number"
                          label="Day Limit" lazy-rules
                          :rules="[val => val>=0 || 'Day limit cannot be Negative']"
-                         step="any"
                 />
               </div>
               <div class="col-6">
@@ -51,7 +50,6 @@
                          lazy-rules
                          :rules="[val => val>=0 || 'Transaction limit cannot be Negative']"
                          step="any"
-
                 />
               </div>
             </div>
@@ -63,7 +61,7 @@
                 />
               </div>
               <div class="col-6">
-                <q-toggle outlined v-model="selectedAccount.isActive" label="Account Status" />
+                <q-toggle outlined v-model="selectedAccount.active" label="Account Status" />
               </div>
             </div>
             <div class="row q-col-gutter-md q-mb-md">

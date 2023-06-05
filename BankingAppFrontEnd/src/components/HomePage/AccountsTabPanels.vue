@@ -8,6 +8,9 @@
         <div class="row" v-else-if="accountHolderName.length!==0">
           <div class="col-6 text-left" style="margin-top: -40px">
             <h4>{{ accountHolderName }}</h4>
+            <h5 class="text-subtitle" style="margin-top: -20px;">
+              Total Balance: <strong>€{{ totalBalanceWithAllAccounts.toFixed(2) }} </strong>
+            </h5>
             <h6 class="text-subtitle1" style="margin-top: -40px;">
               You have € {{ dayLimitLeft.toFixed(2) }} left for today</h6>
             <h6 class="text-subtitle1" style="margin-top: -40px;">
@@ -99,10 +102,11 @@ export default {
   methods: {
     fetchAccountsOfUser() {
       return new Promise((resolve, reject) => {
-        axios.get('/accounts/user/' + this.userSessionStore.getEmail).then((response) => {
+        axios.get('/accounts/user/' + 'employeecustomer@seed.com').then((response) => {
           this.accounts = response.data.accounts;
           this.accountHolderName = response.data.accountHolder.firstName + ' ' + response.data.accountHolder.lastName;
           this.loggedUserTransactionLimit= response.data.accountHolder.transactionLimit;
+          this.totalBalanceWithAllAccounts=response.data.totalBalance;
           resolve();
         }).catch((error) => {
           console.log(error);
@@ -124,6 +128,7 @@ export default {
       accountHolderName:'',
       loggedUserEmail: 'employeecustomer@seed.com',
       dayLimitLeft: 500,
+      totalBalanceWithAllAccounts: 0,
       loading: true,
       dayLimitLeftPercentage: 40,
       loggedUserTransactionLimit: 1000,
