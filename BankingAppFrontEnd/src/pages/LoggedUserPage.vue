@@ -1,0 +1,30 @@
+<template>
+  <div class="q-pa-md" >
+    <h1>Welcome Bijay</h1>
+    <div class="row">
+      <div class="q-gutter-y-md" style="width: 700px; margin-left: 400px;" >
+        <AccountsTabPanels class="q-ml-lg-lg" ></AccountsTabPanels>
+      </div>
+    </div>
+    <h2> Place for Transactions</h2>
+  </div>
+</template>
+
+<script>
+import AccountsTabPanels from 'components/HomePage/AccountsTabPanels.vue';
+
+export default {
+  name: 'LoggedUserOverViewPage',
+  components: {
+    AccountsTabPanels,
+  },
+  data() {
+    return {};
+  },
+  methods: {},
+};
+</script>
+
+<style scoped>
+
+</style>
