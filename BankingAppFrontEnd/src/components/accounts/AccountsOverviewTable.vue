@@ -4,7 +4,9 @@
       <div style="flex: 1;">
         <q-input v-model="search" label="Search By IBAN" dense class="search-input"
                  @update:model-value="searchBoxTextChanged"
+                 type="search"
                  lazy-rules
+                 clearable
                  :rules="[val => val.length<19 || 'Iban cannot be more than 18 characters']"
         />
       </div>
