@@ -43,8 +43,7 @@ export const useUserSessionStore = defineStore('userSession', {
           resolve();
         })
         .catch(error => {
-          console.log(error);
-          reject(error.response.data.message);
+          reject(error);
         });
       });
     },

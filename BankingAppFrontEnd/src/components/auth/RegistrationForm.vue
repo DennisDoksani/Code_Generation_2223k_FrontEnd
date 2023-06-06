@@ -32,7 +32,7 @@
             type="password"
           />
           <q-input
-            v-model="passwordConfirmation"
+            v-model="confirmationPassword"
             label="Confirm Password"
             lazy-rules
             :rules="[
@@ -50,6 +50,16 @@
               val => (val.length == 8 || val.length == 9) || 'BSN must be 8 or 9 digits',
               ]"
             type="text"
+          />
+          <q-input
+            v-model="dateOfBirth"
+            label="Date of Birth"
+            lazy-rules
+            :rules="[
+              val => !!val || 'Please enter your date of birth',
+              val => (new Date(val) < new Date()) || 'Date of birth must be in the past',
+              ]"
+            type="date"
           />
           <q-input
             v-model="phoneNumber"
@@ -70,6 +80,7 @@
 </template>
   
   <script>
+  import axios from '/axios-basis.js';
   export default {
     name: 'RegistrationForm',
     data () {
@@ -80,19 +91,38 @@
         phoneNumber: '',
         dateOfBirth: '',
         email: '',
+        confirmationPassword: '',
         password: '',
-        passwordConfirmation: '',
       }
     },
     methods: {
     register() {
-      this.userSessionStore.login(this.email, this.password)
+      axios.post('/users', {
+        bsn: this.bsn,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        phoneNumber: this.phoneNumber,
+        dateOfBirth: this.dateOfBirth,
+        email: this.email,
+        password: this.password,
+      })
       .then(()=> {
-        this.$router.push("/overview")
-
+        this.$router.push("/")
+        this.$q.notify({
+          message: 'Registration successful',
+          color: 'positive',
+          icon: 'check',
+          position: 'top'
+        })
       })
       .catch((error) => {
         console.log(error);
+        this.$q.notify({
+          message: error.response.data.message || 'Registration failed, try again later',
+          color: 'negative',
+          icon: 'warning',
+          position: 'top'
+        })
       });
     }
   } 
