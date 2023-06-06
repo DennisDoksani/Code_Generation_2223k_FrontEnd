@@ -102,7 +102,7 @@ export default {
   methods: {
     fetchAccountsOfUser() {
       return new Promise((resolve, reject) => {
-        axios.get('/accounts/user/' + 'employeecustomer@seed.com').then((response) => {
+        axios.get('/accounts/user/' + this.userSessionStore.getEmail).then((response) => {
           this.accounts = response.data.accounts;
           this.accountHolderName = response.data.accountHolder.firstName + ' ' + response.data.accountHolder.lastName;
           this.loggedUserTransactionLimit= response.data.accountHolder.transactionLimit;

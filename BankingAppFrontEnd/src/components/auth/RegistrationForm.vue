@@ -113,6 +113,7 @@
           icon: 'check',
           position: 'top'
         })
+        wait(1000);
         this.$router.push("/")
       })
       .catch((error) => {
