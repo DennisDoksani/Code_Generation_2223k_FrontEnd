@@ -1,7 +1,6 @@
 <template>
   <q-page class="flex flex-center">
     <div class="q-pa-md" >
-      <h1>Welcome Bijay</h1>
       <div class="row">
         <div class="q-gutter-y-md" style="width: 700px; margin-left: 400px;" >
           <AccountsTabPanels class="q-ml-lg-lg" ></AccountsTabPanels>
