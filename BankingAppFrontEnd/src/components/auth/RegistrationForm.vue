@@ -107,13 +107,13 @@
         password: this.password,
       })
       .then(()=> {
-        this.$router.push("/")
         this.$q.notify({
           message: 'Registration successful',
           color: 'positive',
           icon: 'check',
           position: 'top'
         })
+        this.$router.push("/")
       })
       .catch((error) => {
         console.log(error);
