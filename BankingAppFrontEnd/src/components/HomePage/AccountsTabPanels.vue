@@ -3,7 +3,7 @@
     <q-card>
       <q-card-section class="q-pa-md d-flex justify-between" style="min-height:160px; max-height: 300px">
         <div v-if="loading " class="flex justify-center items-center">
-          <q-spinner-gears size="90px" ></q-spinner-gears>
+          <q-spinner-gears size="90px"></q-spinner-gears>
         </div>
         <div class="row" v-else-if="accountHolderName.length!==0">
           <div class="col-6 text-left" style="margin-top: -40px">
@@ -12,7 +12,7 @@
               Total Balance: <strong>€{{ totalBalanceWithAllAccounts.toFixed(2) }} </strong>
             </h5>
             <h6 class="text-subtitle1" style="margin-top: -40px;">
-              You have € {{ dayLimitLeft.toFixed(2) }} left for today</h6>
+              You have € {{ getTransactionLimitLeft.toFixed(2) }} transaction left for today</h6>
             <h6 class="text-subtitle1" style="margin-top: -40px;">
               Your transaction limit is € {{ loggedUserTransactionLimit.toFixed(2) }}
             </h6>
@@ -21,20 +21,20 @@
             <q-knob
               show-value
               class="text-white q-ma-md"
-              v-model="dayLimitLeftPercentage"
-              size="100px"
+              size="150px"
+              v-model="getUsagePercentage"
               :thickness="0.2"
               color="orange"
               center-color="grey-8"
               track-color="transparent"
               readonly
             >
-              {{ dayLimitLeftPercentage }}%
+              {{ getUsagePercentage }}% <div style="font-size: 15px;">Used</div>
             </q-knob>
           </div>
         </div>
         <div v-else class="flex justify-center items-center">
-          <q-spinner-gears size="90px" ></q-spinner-gears>
+          <q-spinner-gears size="90px"></q-spinner-gears>
         </div>
 
       </q-card-section>
@@ -87,7 +87,7 @@
 import {AccountTypes} from 'app/ConstantsContainer';
 import AccountCarousalList from 'components/HomePage/AccountCarousalList.vue';
 import axios from '/axios-basis.js';
-import {useUserSessionStore} from 'stores/userSession.js'
+import {useUserSessionStore} from 'stores/userSession.js';
 
 export default {
   name: 'AccountsTabPanels',
@@ -102,11 +102,14 @@ export default {
   methods: {
     fetchAccountsOfUser() {
       return new Promise((resolve, reject) => {
-        axios.get('/accounts/user/' + this.userSessionStore.getEmail).then((response) => {
+        axios.get('/accounts/user/' + this.userSessionStore.getEmail,
+        ).then((response) => {
           this.accounts = response.data.accounts;
           this.accountHolderName = response.data.accountHolder.firstName + ' ' + response.data.accountHolder.lastName;
-          this.loggedUserTransactionLimit= response.data.accountHolder.transactionLimit;
-          this.totalBalanceWithAllAccounts=response.data.totalBalance;
+          this.loggedUserTransactionLimit = response.data.accountHolder.transactionLimit;
+          this.totalBalanceWithAllAccounts = response.data.totalBalance;
+          this.dayLimitOfUser = response.data.accountHolder.dayLimit;
+          this.transactedToday = response.data.totalTransactedAmountToday;
           resolve();
         }).catch((error) => {
           console.log(error);
@@ -125,13 +128,13 @@ export default {
       activeTab: 'current',
       AccountTypes: AccountTypes,
       accounts: null,
-      accountHolderName:'',
+      accountHolderName: '',
       loggedUserEmail: 'employeecustomer@seed.com',
-      dayLimitLeft: 500,
+      transactedToday: '',
       totalBalanceWithAllAccounts: 0,
       loading: true,
-      dayLimitLeftPercentage: 40,
-      loggedUserTransactionLimit: 1000,
+      dayLimitOfUser: 0,
+      loggedUserTransactionLimit: 0,
     };
   },
   mounted() {
@@ -153,6 +156,15 @@ export default {
         return this.accounts;
       }
       return [this.accounts];
+    },
+    getUsagePercentage() {
+      if(this.dayLimitOfUser === 0) {
+        return 0; // to avoid division by zero
+      }
+      return (this.transactedToday/this.dayLimitOfUser) * 100;
+    },
+    getTransactionLimitLeft() {
+      return this.dayLimitOfUser - this.transactedToday;
     },
   },
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <q-dialog v-model="isVisible" no-backdrop-dismiss>
       <q-card class="q-pa-md">
         <q-card-section class="row items-center q-pb-none">
@@ -50,7 +50,7 @@
                            label="Transaction Limit"
                            lazy-rules
                            :rules="[val => val>=0 || 'Transaction limit cannot be Negative'
-                         ,val => !!val || 'Transaction limit cannot be empty']"
+                         ,val => val !=='' || 'Transaction limit cannot be empty']"
                   />
                 </div>
               </div>
@@ -148,7 +148,7 @@ export default {
       .then(() => {
         this.$q.notify({
           color: 'positive',
-          message: 'Account create successfully',
+          message: 'Account Updated successfully',
           icon: 'check',
         });
         this.selectedAccount = null;

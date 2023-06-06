@@ -39,9 +39,6 @@ export default {
     },
   },
   methods: {},
-  mounted() {
-    console.log(this.account);
-  }
 };
 </script>
 

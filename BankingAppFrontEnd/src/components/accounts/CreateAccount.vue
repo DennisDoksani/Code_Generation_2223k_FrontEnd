@@ -127,11 +127,11 @@ export default {
         accountType: this.accountType,
         dayLimit: this.dayLimit,
         transactionLimit: this.transactionLimit,
-      }).then(response => {
+      }).then(() => {
         this.showProgressBar = false;
         this.$q.notify({
           color: 'positive',
-          message: 'Account updated successfully',
+          message: 'Account Created successfully',
           icon: 'check',
         });
         this.errorMessage = '';
