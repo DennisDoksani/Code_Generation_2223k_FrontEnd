@@ -1,7 +1,7 @@
 <template>
   <td class="text-left">{{ account.iban }}</td>
   <td class="text-right">{{ account.accountHolder.firstName }} {{ account.accountHolder.lastName }}</td>
-  <td class="text-right">{{ account.isActive ? 'Yes' : 'No' }}</td>
+  <td class="text-right">{{ account.active ? 'Yes' : 'No' }}</td>
   <td class="text-right">{{ account.accountType }}</td>
   <td class="text-right">€ {{ account.absoluteLimit.toFixed(2) }}</td>
   <td class="text-right">€ {{ account.accountHolder.transactionLimit.toFixed(2) }}</td>
@@ -9,9 +9,9 @@
   <td class="text-right">€ {{ account.accountHolder.dayLimit.toFixed(2) }}</td>
   <td class="text-right">
     <q-btn
-      :color="account.isActive ? 'negative' : 'positive'"
-      :label="account.isActive ? 'Deactivate' : 'Activate'"
-      @click="updateStatus(account.isActive, account.iban)"
+      :color="account.active ? 'negative' : 'positive'"
+      :label="account.active ? 'Deactivate' : 'Activate'"
+      @click="updateStatus(account.active, account.iban)"
       class="q-ma-md"
     ></q-btn>
 

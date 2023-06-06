@@ -41,7 +41,6 @@
                          type="number"
                          label="Day Limit" lazy-rules
                          :rules="[val => val>=0 || 'Day limit cannot be Negative']"
-                         step="any"
                 />
               </div>
               <div class="col-6">
@@ -50,8 +49,6 @@
                          label="Transaction Limit"
                          lazy-rules
                          :rules="[val => val>=0 || 'Transaction limit cannot be Negative']"
-                         step="any"
-
                 />
               </div>
             </div>
@@ -76,7 +73,7 @@
         </q-card-section>
         <q-card-actions align="right">
           <q-btn color="primary" label="Cancel" @click="cancelUpdating" />
-          <q-btn color="primary" @click="updateAccountClicked">
+          <q-btn color="primary" @click="updateAccountClicked"  >
             <q-spinner v-if="showProgressBar" size="20px" color="white" />
             <div v-else>
               Update
@@ -132,6 +129,7 @@ export default {
     fetchSelectedAccount() {
       axios.get('/accounts/' + this.selectedIban).then(response => {
         this.selectedAccount = response.data;
+        this.selectedAccount.isActive= response.data.active;
       }).catch(error => {
         console.log(error);
       });
@@ -154,7 +152,7 @@ export default {
       }).catch(error => {
         if (error.response.status === 404) {
           this.$q.notify({
-            color: 'Warning',
+            color: 'negative',
             message: error.response.data.message,
             icon: 'report_problem',
           });

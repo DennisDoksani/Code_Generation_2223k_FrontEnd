@@ -21,9 +21,9 @@
       </q-card-section>
     </q-card>
 </template>
-  
+
   <script>
-  import { useUserSessionStore } from "stores/user-session";
+  import { useUserSessionStore } from "stores/userSession";
   export default {
     name: 'LoginForm',
     setup() {
@@ -40,9 +40,9 @@
     methods: {
     login() {
       this.userSessionStore.login(this.email, this.password)
-      .then(()=> { 
-        this.$router.push("/") 
-        
+      .then(()=> {
+        this.$router.push("/overview")
+
       })
       .catch((error) => {
         console.log(error);
@@ -51,7 +51,7 @@
   }
   };
   </script>
-  
+
   <style>
   .q-card {
     width: 100%

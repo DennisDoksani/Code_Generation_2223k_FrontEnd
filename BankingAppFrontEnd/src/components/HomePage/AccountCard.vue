@@ -12,8 +12,8 @@
         </div>
         <div class="row q-col-gutter-md q-pt-xs">
           <div class="col-6">
-            <div class="text-subtitle">Transaction Limit:</div>
-            <div class="text-bold">€{{account.accountHolder.transactionLimit.toFixed(2)}}</div>
+            <div class="text-subtitle">Created on:</div>
+            <div class="text-bold"> {{account.creationDate}}</div>
           </div>
           <div class="col-6">
             <div class="text-subtitle">Absolute Limit:</div>

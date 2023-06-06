@@ -12,11 +12,12 @@ const routes = [
       { path: '', component: () => IndexPage },
       { path: '/accounts',component: () => AccountsOverviewPage },
       { path: '/register',component: () => RegistrationPage },
-      { path: '/overview',component: () => LoggedUserPage }
+      { path: '/overview',component: () => LoggedUserPage },
+      { path: '/newaccount',component: () => import('components/accounts/CreateAccount.vue') },
     ]
   },
 
-  // Always leave this as last one for 404
+  // Always leave this last one for 404
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue')

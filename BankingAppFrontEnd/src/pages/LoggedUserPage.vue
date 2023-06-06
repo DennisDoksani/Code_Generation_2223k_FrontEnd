@@ -6,7 +6,7 @@
         <AccountsTabPanels class="q-ml-lg-lg" ></AccountsTabPanels>
       </div>
     </div>
-    <h2> Place for Transcations</h2>
+    <h2> Place for Transactions</h2>
   </div>
 </template>
 
@@ -17,7 +17,6 @@ export default {
   name: 'LoggedUserOverViewPage',
   components: {
     AccountsTabPanels,
-
   },
   data() {
     return {};
