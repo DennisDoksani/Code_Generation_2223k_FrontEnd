@@ -53,7 +53,6 @@ export default {
   },
   methods: {},
   mounted() {
-    console.log(this.accounts);
     this.selectedAccount = this.accounts[0];
   },
 };
