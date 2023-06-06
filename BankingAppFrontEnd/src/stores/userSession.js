@@ -8,13 +8,12 @@ export const useUserSessionStore = defineStore('userSession', {
     jwt: '',
     id: 0,
     email: '',
-    firstName: '',
-    lastName: '',
+    name: '',
   }),
   persist: true,
   getters: {
     isLoggedIn: (state) => state.jwt !== '',
-    getUserFullName: (state) => state.firstName + ' ' + state.lastName,
+    getUserFullName: (state) => state.name,
     getId: (state) => state.id,
     getEmail: (state) => state.email,
   },
@@ -25,7 +24,8 @@ export const useUserSessionStore = defineStore('userSession', {
         axios.post('auth/login', {
           email: email,
           password: password,
-        }).then(response => {
+        })
+        .then(response => {
           this.jwt = response.data.jwt;
           this.id = response.data.id;
           this.email = response.data.email;
@@ -41,9 +41,9 @@ export const useUserSessionStore = defineStore('userSession', {
 
           console.log(response);
           resolve();
-        }).catch(error => {
-          console.log(error);
-          reject(error.response);
+        })
+        .catch(error => {
+          reject(error);
         });
       });
     },
