@@ -10,7 +10,6 @@ export const useUserSessionStore = defineStore('userSession', {
     email: '',
     name: '',
   }),
-  persist: true,
   getters: {
     isLoggedIn: (state) => state.jwt !== '',
     getUserFullName: (state) => state.name,
@@ -31,15 +30,19 @@ export const useUserSessionStore = defineStore('userSession', {
           this.email = response.data.email;
           this.name = response.data.name;
 
-          sessionStorage['jwt'] = this.jwt;
-          sessionStorage['id'] = this.id;
-          sessionStorage['email'] = this.email;
-          sessionStorage['name'] = this.name;
+          //sessionStorage['jwt'] = this.jwt;
+          //sessionStorage['id'] = this.id;
+          //sessionStorage['email'] = this.email;
+          //sessionStorage['name'] = this.name;
+
+          localStorage['jwt'] = this.jwt;
+          localStorage['id'] = this.id;
+          localStorage['email'] = this.email;
+          localStorage['name'] = this.name;
 
           axios.defaults.headers.common['Authorization'] = 'Bearer ' +
             this.jwt;
 
-          console.log(response);
           resolve();
         })
         .catch(error => {
@@ -48,14 +51,15 @@ export const useUserSessionStore = defineStore('userSession', {
       });
     },
     localLogin() {
-      if (sessionStorage['jwt'] !== undefined) {
-        this.jwt = sessionStorage['jwt'];
-        this.id = sessionStorage['id'];
-        this.firstName = sessionStorage['firstName'];
-        this.lastName = sessionStorage['lastName'];
+      if (localStorage['jwt'] !== undefined) {
+        this.jwt = localStorage['jwt'];
+        this.id = localStorage['id'];
+        this.email = localStorage['email'];
+        this.name = localStorage['name'];
+
 
         axios.defaults.headers.common['Authorization'] = 'Bearer ' +
-          sessionStorage['jwt'];
+        localStorage['jwt'];
         console.log('Logged in automatically');
       }
     },

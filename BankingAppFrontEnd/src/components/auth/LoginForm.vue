@@ -17,7 +17,7 @@
           />
           <q-btn type="submit" label="Login" class="q-mt-md" />
         </q-form>
-        <RouterLink id="register-link" to="/register" class="q-mt-md">Don't have an account? Register here.</RouterLink>
+        <RouterLink to="/register" class="q-mt-md">Don't have an account? Register here.</RouterLink>
       </q-card-section>
     </q-card>
 </template>
@@ -41,10 +41,21 @@
     login() {
       this.userSessionStore.login(this.email, this.password)
       .then(()=> {
+        this.$q.notify({
+          color: 'positive',
+          message: 'Login successful',
+          icon: 'check'
+        })
         this.$router.push("/overview")
 
       })
       .catch((error) => {
+        this.$q.notify({
+          color: 'negative',
+          message: error.response.data.message || 'Login failed, try again later',
+          icon: 'warning',
+          position: 'top'
+        })
         console.log(error);
       });
     }
@@ -55,8 +66,5 @@
   <style>
   .q-card {
     width: 100%
-  }
-  .register-link {
-    color: white;
   }
   </style>
