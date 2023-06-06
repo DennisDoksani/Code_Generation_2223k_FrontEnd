@@ -2,49 +2,51 @@
     <div class="q-pa-md">
       <div style="display: flex; align-items: center;">
         <div style="flex: 1;">
-          <q-input v-model="search" label="Search By IBAN" dense class="search-input"
+          <q-input v-model="search" label="Search By ID" dense class="search-input"
                    @update:model-value="searchBoxTextChanged"
                    lazy-rules
-                   :rules="[val => val.length<19 || 'Iban cannot be more than 18 characters']"
+                   :rules="[val => val.length<19 || 'ID cannot be more than 65 characters']"
           />
         </div>
         <div>
-          <q-select borderless v-model="accountType" :options="accountTypes" label="Sort Accounts"
+          <q-select borderless v-model="userType" :options="userTypes" label="Sort Users"
                     class="sorting-select"
-                    @update:model-value="sortAccounts"></q-select>
+                    @update:model-value="sortUsers"></q-select>
         </div>
       </div>
       <q-markup-table
       >
         <thead>
         <tr>
-          <th class="text-left">IBAN</th>
-          <th class="text-right">Full Name</th>
+          <th class="text-left">ID</th>
+          <th class="text-right">First Name</th>
+          <th class="text-right">Last Name</th>
+          <th class="text-right">Birth Date</th>
+          <th class="text-right">Phone Number</th>
+          <th class="text-right">Email</th>
           <th class="text-right">Active</th>
-          <th class="text-right">Account Type</th>
-          <th class="text-right">Transaction Limit</th>
-          <th class="text-right">Account Balance</th>
           <th class="text-right">Day Limit</th>
-          <th class="q-pa-r-md">Action</th>
+          <th class="text-right">Transaction Limit</th>
         </tr>
         </thead>
         <tbody>
-        <template v-if="filteredAccounts.length === 0">
+        <template v-if="filteredUsers.length === 0">
           <tr>
-            <td colspan="5" class="text-center">No Accounts with Bank at the moment</td>
+            <td colspan="5" class="text-center">No Users with Bank Accounts at the moment</td>
           </tr>
         </template>
-        <template v-else-if="searchingAccountNotfound">
+        <template v-else-if="searchingUserNotfound">
           <tr>
-            <td colspan="5" class="text-center">No Account Found with Iban
+            <td colspan="5" class="text-center">No Users Found with ID
               {{ this.search }}
             </td>
           </tr>
         </template>
         <template v-else>
-          <tr v-for="account in filteredAccounts" v-bind:key="account.iban">
-            <TableRow :account="account"
-                      @UpdatedStatusSuccessFully="accountUpdatedSuccessFully"></TableRow>
+          <tr v-for="user in filteredUsers" v-bind:key="user.id">
+                      <!--Do I keep the UpdatedStatusSuccessFully??? line 48-->
+            <TableRow :user="user"
+                      @UpdatedStatusSuccessFully="userUpdatedSuccessFully"></TableRow>
           </tr>
         </template>
         </tbody>
@@ -53,7 +55,7 @@
       <div class="pagination-controls float-right q-pa-sm">
         <q-btn @click="previousPage" :disable="this.pagination.page === 1"
                label="Previous"></q-btn>
-        <q-btn @click="nextPage" :disable="filteredAccounts.length!==this.pagination.rowsPerPage"
+        <q-btn @click="nextPage" :disable="filteredUsers.length!==this.pagination.rowsPerPage"
                label="Next"></q-btn>
       </div>
     </div>
@@ -112,12 +114,12 @@ export default {
           offset: offset,
         },
       }).then(response => {
-        this.accounts = response.data;
-        this.searchingAccountNotfound = false;
+        this.users = response.data;
+        this.searchingUserNotfound = false;
         this.$emit('loading', false);
       }).catch(error => {
-        error.response.status === 404 ? this.searchingAccountNotfound = true :
-          this.searchingAccountNotfound = false;
+        error.response.status === 404 ? this.searchingUserNotfound = true :
+          this.searchingUserNotfound = false;
         if (error.response.status === 401)
           this.$emit('unAuthorised');
         if (error.response.status === 403)
@@ -128,23 +130,23 @@ export default {
     searchBoxTextChanged() {
       if (this.search.length >= 18) {
         console.log(this.search);
-        this.currentUrl = this.defaultAccountUrl + '/' + this.search;
+        this.currentUrl = this.defaultUserUrl + '/' + this.search;
       } else
-        this.currentUrl = this.defaultAccountUrl;
-      this.fetchAccounts();
+        this.currentUrl = this.defaultUserUrl;
+      this.fetchUsers();
     },
-    sortAccounts() {
+    sortUsers() {
       this.pagination.page = 1;
-      this.currentUrl = this.defaultAccountUrl + this.defaultAccountSortingUrl + this.accountType;
-      this.fetchAccounts();
+      this.currentUrl = this.defaultUserUrl + this.defaultUserSortingUrl + this.userType;
+      this.fetchUsers();
     },
     previousPage() {
       this.pagination.page--;
-      this.fetchAccounts();
+      this.fetchUsers();
     },
     nextPage() {
       this.pagination.page++;
-      this.fetchAccounts();
+      this.fetchUsers();
     },
   },
 };
