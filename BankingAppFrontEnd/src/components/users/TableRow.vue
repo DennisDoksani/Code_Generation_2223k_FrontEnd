@@ -30,7 +30,7 @@
   </template>
   
   <script>
-  // import axios from '/axios-auth.js';
+  import axios from '/axios-basis.js';
   import UpdatingUserDetails from 'components/users/UpdatingUserDetails.vue';
   
   export default {
