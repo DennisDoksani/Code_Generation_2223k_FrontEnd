@@ -24,7 +24,8 @@ export const useUserSessionStore = defineStore('userSession', {
         axios.post('auth/login', {
           email: email,
           password: password,
-        }).then(response => {
+        })
+        .then(response => {
           this.jwt = response.data.jwt;
           this.id = response.data.id;
           this.email = response.data.email;
@@ -40,9 +41,10 @@ export const useUserSessionStore = defineStore('userSession', {
 
           console.log(response);
           resolve();
-        }).catch(error => {
+        })
+        .catch(error => {
           console.log(error);
-          reject(error.response);
+          reject(error.response.data.message);
         });
       });
     },

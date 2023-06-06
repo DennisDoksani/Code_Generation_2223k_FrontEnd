@@ -1,21 +1,24 @@
 <template>
-    <div class="q-pa-md">
+  <q-page class="flex flex-center ">
+    <div class="q-pa-sm">
       <h1>Register</h1>
       <div class="q-pa-sm">
-        <RegistrationForm></RegistrationForm>>
+        <RegistrationForm></RegistrationForm>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import RegistrationForm from "components/auth/RegistrationForm.vue";
-  export default {
-    name: "RegistrationPage",
-    components: { RegistrationForm }
-  
-  };
-  </script>
-  
-  <style scoped>
-  
-  </style>
+  </q-page>
+</template>
+
+<script>
+import RegistrationForm from "components/auth/RegistrationForm.vue";
+export default {
+  name: "RegistrationPage",
+  components: { RegistrationForm }
+};
+</script>
+
+<style scoped>
+  .q-page {
+    width: 100%;
+  }
+</style>
