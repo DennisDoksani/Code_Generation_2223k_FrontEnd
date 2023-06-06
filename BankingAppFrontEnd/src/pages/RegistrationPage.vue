@@ -2,16 +2,16 @@
     <div class="q-pa-md">
       <h1>Register</h1>
       <div class="q-pa-sm">
-        <AccountsOverviewTable ></AccountsOverviewTable>
+        <RegistrationForm></RegistrationForm>>
       </div>
     </div>
   </template>
   
   <script>
-  import AccountsOverviewTable from "components/accounts/AccountsOverviewTable.vue";
+  import RegistrationForm from "components/auth/RegistrationForm.vue";
   export default {
-    name: "AccountsIndex",
-    components: { AccountsOverviewTable },
+    name: "RegistrationPage",
+    components: { RegistrationForm }
   
   };
   </script>
