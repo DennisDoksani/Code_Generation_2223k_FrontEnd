@@ -4,3 +4,5 @@ export const AccountStatus=[
   {label: 'Inactive', value: false},
 ]
 
+export const UserTypes = ['User', 'Employee']
+
