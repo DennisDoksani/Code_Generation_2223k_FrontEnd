@@ -14,6 +14,7 @@ const routes = [
       { path: '/register',component: () => RegistrationPage },
       { path: '/overview',component: () => LoggedUserPage },
       { path: '/newaccount',component: () => import('components/accounts/CreateAccount.vue') },
+      { path: '/users', component: () => import('pages/UsersOverviewPage.vue')},
     ]
   },
 
