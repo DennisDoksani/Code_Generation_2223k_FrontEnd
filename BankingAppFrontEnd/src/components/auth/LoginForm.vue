@@ -17,7 +17,7 @@
           />
           <q-btn type="submit" label="Login" class="q-mt-md" />
         </q-form>
-        
+        <RouterLink id="register-link" to="/register" class="q-mt-md">Don't have an account? Register here.</RouterLink>
       </q-card-section>
     </q-card>
 </template>
@@ -55,5 +55,8 @@
   <style>
   .q-card {
     width: 100%
+  }
+  .register-link {
+    color: white;
   }
   </style>
