@@ -1,8 +1,4 @@
-export const AccountTypes = ['Savings','Current']
-export const AccountStatus=[
-  {label: 'Active', value: true},
-  {label: 'Inactive', value: false},
-]
+export const AccountTypes = ['Current','Savings',]
 
 export const UserTypes = ['User', 'Employee']
 

@@ -4,7 +4,9 @@
       <div style="flex: 1;">
         <q-input v-model="search" label="Search By IBAN" dense class="search-input"
                  @update:model-value="searchBoxTextChanged"
+                 type="search"
                  lazy-rules
+                 clearable
                  :rules="[val => val.length<19 || 'Iban cannot be more than 18 characters']"
         />
       </div>
@@ -22,6 +24,7 @@
         <th class="text-right">Full Name</th>
         <th class="text-right">Active</th>
         <th class="text-right">Account Type</th>
+        <th class="text-right">Absolute Limit</th>
         <th class="text-right">Transaction Limit</th>
         <th class="text-right">Account Balance</th>
         <th class="text-right">Day Limit</th>
@@ -60,9 +63,9 @@
 </template>
 
 <script>
-// import axios from '/axios-auth.js';
+import axios from '/axios-basis.js';
 import TableRow from 'components/accounts/TableRow.vue';
-import {AccountTypes} from 'app/ConstantsContainer';
+import {AccountTypes} from 'app/ConstantsContainer.js';
 
 export default {
   name: 'AccountsOverviewTable',
