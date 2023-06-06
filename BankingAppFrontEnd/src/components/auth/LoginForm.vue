@@ -44,7 +44,8 @@
         this.$q.notify({
           color: 'positive',
           message: 'Login successful',
-          icon: 'check'
+          icon: 'check',
+          position: 'top'
         })
         this.$router.push("/overview")
 
