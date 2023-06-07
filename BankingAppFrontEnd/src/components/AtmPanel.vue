@@ -65,7 +65,7 @@
             icon: 'warning',
             position: 'top'
           })
-          console.log(error);
+          console.log(error.response);
         });
       },
       
@@ -91,7 +91,7 @@
             icon: 'warning',
             position: 'top'
           })
-          console.log(error);
+          console.log(error.response);
         });
       }
     }
