@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="row q-col-gutter-md q-pt-xs">
-          <div class="col-6">
+          <div class="col-5">
             <div class="text-subtitle">Created on:</div>
             <div class="text-bold"> {{account.creationDate}}</div>
           </div>
