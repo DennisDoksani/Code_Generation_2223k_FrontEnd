@@ -28,6 +28,7 @@
         <AtmPanel :selectedIban="selectedIban"
                             @closeDialogue="onDialogueClose"
                             @withdraw()="withdraw()"
+                  @UpdateAccountBalance="UpdateAccountBalance"
                             v-if="selectedIban.length !==0">
         </AtmPanel>
   </div>
@@ -62,7 +63,10 @@ export default {
     onDialogClose() {
       this.dialogVisible = false;
     },
-    
+    UpdateAccountBalance() {
+      this.$emit('UpdateAccountBalance');
+    },
+
   },
 };
 </script>

@@ -16,7 +16,9 @@
     >
       <q-carousel-slide v-for="(account, index) in accounts" :key="index" :name="index">
         <div class="q-flex q-items-center q-justify-center">
-          <AccountCard :account="account" class="q-pt-lg-xl"></AccountCard>
+          <AccountCard :account="account"
+                       class="q-pt-lg-xl"
+                       @UpdateAccountBalance="UpdateAccountBalance"></AccountCard>
         </div>
       </q-carousel-slide>
     </q-carousel>
@@ -51,7 +53,11 @@ export default {
       },
     };
   },
-  methods: {},
+  methods: {
+    UpdateAccountBalance(){
+      this.$emit('UpdateAccountBalance');
+    },
+  },
   mounted() {
     this.selectedAccount = this.accounts[0];
   },

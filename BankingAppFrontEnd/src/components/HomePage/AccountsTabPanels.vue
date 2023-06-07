@@ -71,7 +71,8 @@
               <q-spinner-gears size="150px"></q-spinner-gears>
             </div>
             <div v-else-if="savingsAccounts.length!==0">
-              <AccountCarousalList :accounts="savingsAccounts" />
+              <AccountCarousalList :accounts="savingsAccounts"
+                                   @UpdateAccountBalance="UpdateAccountBalance"/>
             </div>
             <div v-else>
               <h4>You dont have any savings accounts</h4>
@@ -100,6 +101,9 @@ export default {
     AccountCarousalList,
   },
   methods: {
+    UpdateAccountBalance(){
+      this.fetchAccountsOfUser();
+    },
     fetchAccountsOfUser() {
       return new Promise((resolve, reject) => {
         axios.get('/accounts/user/' + this.userSessionStore.getEmail,
