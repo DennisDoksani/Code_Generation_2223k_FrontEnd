@@ -56,7 +56,7 @@
             icon: 'check',
             position: 'top'
           })
-          closeDialog()
+          this.closeDialog()
         })
         .catch((error) => {
           this.$q.notify({
@@ -82,7 +82,7 @@
             position: 'top'
           })
           this.$emit(withdraw, this.amount)
-          closeDialog()
+          this.closeDialog()
         })
         .catch((error) => {
           this.$q.notify({
