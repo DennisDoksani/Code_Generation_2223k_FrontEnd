@@ -4,7 +4,7 @@
       <h1 class="flex flex-center">BDRJ Bank</h1>
       <h4 class="flex flex-center">Putting the 'fun' in funds</h4>
       <div class="flex flex-center">
-        <LoginForm v-if="!this.userSessionStore.isLoggedIn"></LoginForm>
+        <LoginForm></LoginForm>
       </div>
     </div>
   </q-page>
@@ -20,13 +20,11 @@ export default defineComponent({
   name: 'IndexPage',
   data() {
     return {
-      isLoggedIn: userSessionStore.isLoggedIn,
+      
     }
   },
   setup() {
-    const userSessionStore = useUserSessionStore();
-  },
-  mounted() {
+    //const userSessionStore = useUserSessionStore();
   },
   components: { LoginForm },
 })
