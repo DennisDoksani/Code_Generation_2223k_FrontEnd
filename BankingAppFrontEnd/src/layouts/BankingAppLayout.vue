@@ -21,10 +21,11 @@
       <q-page-container>
         <router-view />
       </q-page-container>
-      <q-footer elevated class="bg-grey-8 text-white footer-flex">
+    </div>
+      <!-- <q-footer elevated class="bg-grey-8 text-white footer-flex">
         <q-toolbar class="toolbar-center">
           <div class="footer-content">
-            <q-list inline dense separator class="q-mt-md">
+            <q-list inline dense separator class="q-mt-sm">
               <router-link to="/overview"><q-item clickable v-ripple><q-item-section>Overview</q-item-section></q-item></router-link>
               <router-link to="/accounts"><q-item clickable v-ripple><q-item-section>Accounts</q-item-section></q-item></router-link>
               <router-link to="/users"><q-item clickable v-ripple><q-item-section>Users</q-item-section></q-item></router-link>
@@ -33,8 +34,8 @@
             <div class="text-caption">Contact: info@bdrjbank.com | +1 800 123 4567</div>
           </div>
         </q-toolbar>
-      </q-footer>
-    </div>
+      </q-footer> -->
+    
   </q-layout>
 </template>
 
@@ -110,6 +111,19 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  overflow-y: auto;
+}
+
+.q-footer {
+  height: 100px;
+  overflow-y: auto;
 }
 
 </style>
