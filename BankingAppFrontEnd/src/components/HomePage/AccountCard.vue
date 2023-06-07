@@ -20,22 +20,33 @@
             <div class="text-bold">€{{ account.absoluteLimit.toFixed(2) }}</div>
           </div>
           <div class="col-1">
-            <q-btn label="ATM" color="secondary" class="q-mt-md"/>
+            <q-btn label="ATM" color="secondary" class="q-mt-md" @click="openAtm(account.iban)"/>
           </div>
-          
-          
         </div>
       </q-card-section>
+      <div v-if="dialogVisible">
+        <AtmPanel :selectedIban="selectedIban"
+                            @closeDialogue="onDialogueClose"
+                            @withdraw()="withdraw()"
+                            v-if="selectedIban.length !==0">
+        </AtmPanel>
+  </div>
     </q-card>
   </div>
 </template>
 
 <script>
+import AtmPanel from 'components/AtmPanel.vue';
 export default {
   name: 'AccountCard',
-  components: {},
+  components: {
+    AtmPanel
+  },
   data() {
-    return {};
+    return {
+      dialogVisible: false,
+      selectedIban: ''
+    };
   },
   props: {
     account: {
@@ -43,7 +54,16 @@ export default {
       required: true,
     },
   },
-  methods: {},
+  methods: {
+    openAtm(iban) {
+      this.selectedIban = iban;
+      this.dialogVisible = true;
+    },
+    onDialogClose() {
+      this.dialogVisible = false;
+    },
+    
+  },
 };
 </script>
 
