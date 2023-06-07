@@ -1,6 +1,9 @@
 <template>
+  <q-dialog v-model="isVisible" no-backdrop-dismiss>
     <q-card class="q-pa-md">
-      <q-card-section>
+      <q-card-section class="q-pa-md">
+        <h4>ATM</h4>
+        <h6>Selected account: {{ selectedIban }}</h6>
         <q-form>
           <q-input
             v-model="amount"
@@ -10,11 +13,13 @@
             val => val > 0 || 'Amount must be greater than 0']"
             type = "number"
           />
-          <q-btn label="Withdraw" color="secondary" class="q-mt-md"/>
-          <q-btn label="Deposit" color="red" class="q-mt-md"/>
+          <q-btn label="Withdraw" color="secondary" class="q-ma-md" @click="withdraw()"/>
+          <q-btn label="Deposit" color="amber" class="q-ma-md" @click="deposit()"/>
+          <q-btn label="Cancel" color="grey" class="q-ma-md " @click="closeDialog()"/>
         </q-form>
       </q-card-section>
     </q-card>
+  </q-dialog>
 </template>
 
 <script>
@@ -22,7 +27,7 @@
   export default {
     name: 'AtmPanel',
     props: {
-      iban: {
+      selectedIban: {
         type: String,
         required: true
       }
@@ -30,57 +35,67 @@
     data () {
       return {
         amount: 0,
+        isVisible: true
       }
     },
     methods: {
-    deposit() {
-      axios.post('/atm/deposit', {
-        accountFrom: this.iban,
-        amount: this.amount
-      })
-      .then(()=> {
-        this.$q.notify({
-          color: 'positive',
-          message: 'Successfully deposited' + this.amount + 'to account ' + this.iban,
-          icon: 'check',
-          position: 'top'
+      closeDialog() {
+        this.isVisible = false,
+        this.$emit('closeDialogue');
+      },
+
+      deposit() {
+        axios.post('/transactions/atm/deposit', {
+          accountTo: this.selectedIban,
+          amount: this.amount
         })
-      })
-      .catch((error) => {
-        this.$q.notify({
-          color: 'negative',
-          message: error.response.data.message || 'Deposit failed, try again later',
-          icon: 'warning',
-          position: 'top'
+        .then(()=> {
+          this.$q.notify({
+            color: 'positive',
+            message: 'Successfully deposited ' + this.amount + ' to account ' + this.selectedIban,
+            icon: 'check',
+            position: 'top'
+          })
+          closeDialog()
         })
-        console.log(error);
-      });
-    },
-    withdraw() {
-        axios.post('/atm/withdraw', {
-        accountTo: this.iban,
-        amount: this.amount
-      })
-      .then(()=> {
-        this.$q.notify({
-          color: 'positive',
-          message: 'Successfully withdrawn' + this.amount + 'from account ' + this.iban,
-          icon: 'check',
-          position: 'top'
+        .catch((error) => {
+          this.$q.notify({
+            color: 'negative',
+            message: error.response.data.message || 'Deposit failed, try again later',
+            icon: 'warning',
+            position: 'top'
+          })
+          console.log(error);
+        });
+      },
+      
+      withdraw() {
+          axios.post('/transactions/atm/withdraw', {
+          accountFrom: this.selectedIban,
+          amount: this.amount
         })
-      })
-      .catch((error) => {
-        this.$q.notify({
-          color: 'negative',
-          message: error.response.data.message || 'Withdrawal failed, try again later',
-          icon: 'warning',
-          position: 'top'
+        .then(()=> {
+          this.$q.notify({
+            color: 'positive',
+            message: 'Successfully withdrawn ' + this.amount + ' from account ' + this.selectedIban,
+            icon: 'check',
+            position: 'top'
+          })
+          this.$emit(withdraw, this.amount)
+          closeDialog()
         })
-        console.log(error);
-      });
+        .catch((error) => {
+          this.$q.notify({
+            color: 'negative',
+            message: error.response.data.message || 'Withdrawal failed, try again later',
+            icon: 'warning',
+            position: 'top'
+          })
+          console.log(error);
+        });
+      }
     }
   }
-}
 </script>
 
 <style>
