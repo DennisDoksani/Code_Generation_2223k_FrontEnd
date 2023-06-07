@@ -63,7 +63,8 @@
               <h4>You dont have any current accounts</h4>
             </div>
             <div v-else>
-              <AccountCarousalList :accounts="currentAccounts" />
+              <AccountCarousalList :accounts="currentAccounts"
+                                   @UpdateAccounts="UpdateAccountBalance"/>
             </div>
           </q-tab-panel>
           <q-tab-panel name="savings">
@@ -72,7 +73,7 @@
             </div>
             <div v-else-if="savingsAccounts.length!==0">
               <AccountCarousalList :accounts="savingsAccounts"
-                                   @UpdateAccountBalance="UpdateAccountBalance"/>
+                                   @UpdateAccounts="UpdateAccountBalance"/>
             </div>
             <div v-else>
               <h4>You dont have any savings accounts</h4>
@@ -101,7 +102,7 @@ export default {
     AccountCarousalList,
   },
   methods: {
-    UpdateAccountBalance(){
+     UpdateAccountBalance(){
       this.fetchAccountsOfUser();
     },
     fetchAccountsOfUser() {

@@ -57,7 +57,7 @@
             position: 'top'
           })
           this.$emit('UpdateAccountBalance' )
-          closeDialog()
+          this.$emit('closeDialogue')
         })
         .catch((error) => {
           this.$q.notify({
@@ -83,7 +83,7 @@
             position: 'top'
           })
           this.$emit('UpdateAccountBalance')
-          closeDialog()
+          this.$emit('closeDialogue')
         })
         .catch((error) => {
           this.$q.notify({

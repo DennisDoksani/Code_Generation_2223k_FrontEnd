@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     UpdateAccountBalance(){
-      this.$emit('UpdateAccountBalance');
+      this.$emit('UpdateAccounts');
     },
   },
   mounted() {

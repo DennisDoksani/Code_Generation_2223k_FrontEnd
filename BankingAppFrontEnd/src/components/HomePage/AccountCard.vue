@@ -27,7 +27,6 @@
       <div v-if="dialogVisible">
         <AtmPanel :selectedIban="selectedIban"
                             @closeDialogue="onDialogueClose"
-                            @withdraw()="withdraw()"
                   @UpdateAccountBalance="UpdateAccountBalance"
                             v-if="selectedIban.length !==0">
         </AtmPanel>
@@ -60,7 +59,7 @@ export default {
       this.selectedIban = iban;
       this.dialogVisible = true;
     },
-    onDialogClose() {
+    onDialogueClose() {
       this.dialogVisible = false;
     },
     UpdateAccountBalance() {
