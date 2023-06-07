@@ -9,14 +9,13 @@
           BDRJ Bank
           <div class="text-subtitle1 " style="margin-top: -10px">Putting Fun in Funds since 2023</div>
         </q-toolbar-title>
-        <q-btn flat round dense icon="account_circle" size="30px" class="q-mt-lg" />
+        <q-btn v-if="userSessionStore.isLoggedIn" flat round dense icon="account_circle" label="Logout" size="20px" class="q-mt-lg" @click="logout" />
       </q-toolbar>
       <div class="nav-tabs" >
         <q-btn flat :class="{ active: activeTab === 'overview' }" label="overview" @click="setActiveTab('overview')" />
         <q-btn flat :class="{ active: activeTab === 'accounts' }" label="Accounts" @click="setActiveTab('accounts')" />
         <q-btn flat :class="{ active: activeTab === 'users' }" label="users" @click="setActiveTab('users')" />
       </div>
-      <q-btn v-if="userSessionStore.isLoggedIn" label="Logout" @click="logout"/>
     </q-header>
     <q-page-container>
       <router-view />
