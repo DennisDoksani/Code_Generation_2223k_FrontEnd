@@ -29,7 +29,7 @@
               track-color="transparent"
               readonly
             >
-              {{ getUsagePercentage }}% <div style="font-size: 15px;">Used</div>
+              {{ getUsagePercentage.toFixed(0) }}% <div style="font-size: 15px;">Used</div>
             </q-knob>
           </div>
         </div>
