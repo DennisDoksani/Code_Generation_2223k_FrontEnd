@@ -21,10 +21,15 @@
   import axios from '/axios-basis.js';
   export default {
     name: 'AtmPanel',
+    props: {
+      iban: {
+        type: String,
+        required: true
+      }
+    },
     data () {
       return {
         amount: 0,
-        iban: ''
       }
     },
     methods: {

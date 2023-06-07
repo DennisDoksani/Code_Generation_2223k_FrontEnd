@@ -15,10 +15,15 @@
             <div class="text-subtitle">Created on:</div>
             <div class="text-bold"> {{account.creationDate}}</div>
           </div>
-          <div class="col-6">
+          <div class="col-5">
             <div class="text-subtitle">Absolute Limit:</div>
             <div class="text-bold">€{{ account.absoluteLimit.toFixed(2) }}</div>
           </div>
+          <div class="col-1">
+            <q-btn label="ATM" color="secondary" class="q-mt-md"/>
+          </div>
+          
+          
         </div>
       </q-card-section>
     </q-card>
