@@ -17,24 +17,25 @@
         <q-btn flat :class="{ active: activeTab === 'users' }" label="users" @click="setActiveTab('users')" />
       </div>
     </q-header>
-    <div class="content-wrap">
-      <q-page-container>
-        <router-view />
-      </q-page-container>
-      <q-footer elevated class="bg-grey-8 text-white footer-flex">
-        <q-toolbar class="toolbar-center">
-          <div class="footer-content">
-            <q-list inline dense separator class="q-mt-md">
-              <router-link to="/overview"><q-item clickable v-ripple><q-item-section>Overview</q-item-section></q-item></router-link>
-              <router-link to="/accounts"><q-item clickable v-ripple><q-item-section>Accounts</q-item-section></q-item></router-link>
-              <router-link to="/users"><q-item clickable v-ripple><q-item-section>Users</q-item-section></q-item></router-link>
-            </q-list>
-            <div class="text-h6">© 2023 BDRJ Bank</div>
-            <div class="text-caption">Contact: info@bdrjbank.com | +1 800 123 4567</div>
-          </div>
-        </q-toolbar>
-      </q-footer>
-    </div>
+
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+    
+    <q-footer elevated class="bg-grey-8 text-white footer-flex">
+      <q-toolbar class="toolbar-center">
+        <div class="footer-content">
+          <q-list inline dense separator class="q-mt-md">
+            <router-link to="/overview"><q-item clickable v-ripple><q-item-section>Overview</q-item-section></q-item></router-link>
+            <router-link to="/accounts"><q-item clickable v-ripple><q-item-section>Accounts</q-item-section></q-item></router-link>
+            <router-link to="/users"><q-item clickable v-ripple><q-item-section>Users</q-item-section></q-item></router-link>
+          </q-list>
+          <div class="text-h6">© 2023 BDRJ Bank</div>
+          <div class="text-caption">Contact: info@bdrjbank.com | +1 800 123 4567</div>
+        </div>
+      </q-toolbar>
+    </q-footer>
+    
   </q-layout>
 </template>
 

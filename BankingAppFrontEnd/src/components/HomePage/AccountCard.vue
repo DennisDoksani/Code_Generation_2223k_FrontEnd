@@ -20,7 +20,7 @@
             <div class="text-bold">€{{ account.absoluteLimit.toFixed(2) }}</div>
           </div>
           <div class="col-1">
-            <q-btn label="ATM" color="secondary" class="q-mt-md" @click="openAtm(account.iban)"/>
+            <q-btn v-if="account.accountType == 'CURRENT'" label="ATM" color="secondary" class="q-mt-md" @click="openAtm(account.iban)"/>
           </div>
         </div>
       </q-card-section>
