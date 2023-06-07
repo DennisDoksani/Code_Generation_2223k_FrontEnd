@@ -1,9 +1,9 @@
 <template>
     <td class="text-left">{{ user.id }}</td>
-    <td class="text-right">{{ user.userHolder.firstName }} {{ user.userHolder.lastName }}</td>
+    <td class="text-right">{{ user.firstName }} {{ user.lastName }}</td>
     <td class="text-right">{{ user.isActive ? 'Yes' : 'No' }}</td>
-    <td class="text-right">{{ user.userHolder.transactionLimit.toFixed(2) }}</td>
-    <td class="text-right">{{ user.userHolder.dayLimit.toFixed(2) }}</td>
+    <td class="text-right">{{ user.transactionLimit.toFixed(2) }}</td>
+    <td class="text-right">{{ user.dayLimit.toFixed(2) }}</td>
     <td class="text-right">
       <q-btn
         :color="user.isActive ? 'negative' : 'positive'"
