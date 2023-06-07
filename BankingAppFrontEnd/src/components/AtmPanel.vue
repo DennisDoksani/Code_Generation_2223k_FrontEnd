@@ -1,59 +1,78 @@
 <template>
     <q-card class="q-pa-md">
       <q-card-section>
-        <q-form @submit="login">
+        <q-form>
           <q-input
-            v-model="email"
-            label="Email"
+            v-model="amount"
+            label="Amount"
             lazy-rules
-            :rules="[val => !!val || 'Please enter your email']"
+            :rules="[val => !!val || 'Please enter an amount',
+            val => val > 0 || 'Amount must be greater than 0']"
+            type = "number"
           />
-          <q-input
-            v-model="password"
-            label="Password"
-            lazy-rules
-            :rules="[val => !!val || 'Please enter your password']"
-            type="password"
-          />
-          <q-btn type="submit" label="Login" class="q-mt-md" />
+          <q-btn label="Withdraw" color="secondary" class="q-mt-md"/>
+          <q-btn label="Deposit" color="red" class="q-mt-md"/>
         </q-form>
-        <RouterLink to="/register" class="q-mt-md">Don't have an account? Register here.</RouterLink>
       </q-card-section>
     </q-card>
 </template>
 
-  <script>
-  import { useUserSessionStore } from "stores/userSession";
+<script>
+  import axios from '/axios-basis.js';
   export default {
-    name: 'LoginForm',
-    setup() {
-      return {
-        userSessionStore : useUserSessionStore()
-      };
+    name: 'AtmPanel',
+    props: {
+      iban: {
+        type: String,
+        required: true
+      }
     },
     data () {
       return {
-        email: '',
-        password: ''
+        amount: 0,
       }
     },
     methods: {
-    login() {
-      this.userSessionStore.login(this.email, this.password)
+    deposit() {
+      axios.post('/atm/deposit', {
+        accountFrom: this.iban,
+        amount: this.amount
+      })
       .then(()=> {
         this.$q.notify({
           color: 'positive',
-          message: 'Login successful',
+          message: 'Successfully deposited' + this.amount + 'to account ' + this.iban,
           icon: 'check',
           position: 'top'
         })
-        this.$router.push("/overview")
-
       })
       .catch((error) => {
         this.$q.notify({
           color: 'negative',
-          message: error.response.data.message || 'Login failed, try again later',
+          message: error.response.data.message || 'Deposit failed, try again later',
+          icon: 'warning',
+          position: 'top'
+        })
+        console.log(error);
+      });
+    },
+    withdraw() {
+        axios.post('/atm/withdraw', {
+        accountTo: this.iban,
+        amount: this.amount
+      })
+      .then(()=> {
+        this.$q.notify({
+          color: 'positive',
+          message: 'Successfully withdrawn' + this.amount + 'from account ' + this.iban,
+          icon: 'check',
+          position: 'top'
+        })
+      })
+      .catch((error) => {
+        this.$q.notify({
+          color: 'negative',
+          message: error.response.data.message || 'Withdrawal failed, try again later',
           icon: 'warning',
           position: 'top'
         })
@@ -61,11 +80,11 @@
       });
     }
   }
-  };
-  </script>
+}
+</script>
 
-  <style>
-  .q-card {
-    width: 100%
-  }
-  </style>
+<style>
+.q-card {
+width: 100%
+}
+</style>

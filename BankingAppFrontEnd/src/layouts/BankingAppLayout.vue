@@ -16,16 +16,18 @@
         <q-btn flat :class="{ active: activeTab === 'accounts' }" label="Accounts" @click="setActiveTab('accounts')" />
         <q-btn flat :class="{ active: activeTab === 'users' }" label="users" @click="setActiveTab('users')" />
       </div>
+      <q-btn v-if="userSessionStore.isLoggedIn" label="Logout" @click="logout"/>
     </q-header>
     <q-page-container>
       <router-view />
     </q-page-container>
-    <h1>Footer mf</h1>
+    <h2>Footer mf</h2>
   </q-layout>
 </template>
 
 <script>
-import {defineComponent} from 'vue';
+import { defineComponent } from 'vue'
+import { useUserSessionStore } from "stores/userSession";
 
 export default defineComponent({
   name: 'MainLayout',
@@ -38,9 +40,18 @@ export default defineComponent({
     setActiveTab(tab) {
       this.activeTab = tab;
       this.$router.push(tab); // Change route to the selected tab
+    },
+    logout(){
+      this.$router.push({ path: '/' });
+      this.userSessionStore.logout();
     }
+  },
+  setup() {
+    return{
+      userSessionStore: useUserSessionStore(),
+    } 
   }
-});
+})
 </script>
 
 <style scoped>

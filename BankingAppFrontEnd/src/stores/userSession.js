@@ -30,15 +30,15 @@ export const useUserSessionStore = defineStore('userSession', {
           this.email = response.data.email;
           this.name = response.data.name;
 
-          //sessionStorage['jwt'] = this.jwt;
-          //sessionStorage['id'] = this.id;
-          //sessionStorage['email'] = this.email;
-          //sessionStorage['name'] = this.name;
+          sessionStorage['jwt'] = this.jwt;
+          sessionStorage['id'] = this.id;
+          sessionStorage['email'] = this.email;
+          sessionStorage['name'] = this.name;
 
-          localStorage['jwt'] = this.jwt;
-          localStorage['id'] = this.id;
-          localStorage['email'] = this.email;
-          localStorage['name'] = this.name;
+          //localStorage['jwt'] = this.jwt;
+          //localStorage['id'] = this.id;
+          //localStorage['email'] = this.email;
+          //localStorage['name'] = this.name;
 
           axios.defaults.headers.common['Authorization'] = 'Bearer ' +
             this.jwt;
@@ -51,22 +51,26 @@ export const useUserSessionStore = defineStore('userSession', {
       });
     },
     localLogin() {
-      if (localStorage['jwt'] !== undefined) {
-        this.jwt = localStorage['jwt'];
-        this.id = localStorage['id'];
-        this.email = localStorage['email'];
-        this.name = localStorage['name'];
-
+      if (sessionStorage['jwt'] !== undefined) {
+        this.jwt = sessionStorage['jwt'];
+        this.id = sessionStorage['id'];
+        this.email = sessionStorage['email'];
+        this.name = sessionStorage['name'];
 
         axios.defaults.headers.common['Authorization'] = 'Bearer ' +
-        localStorage['jwt'];
+        sessionStorage['jwt'];
         console.log('Logged in automatically');
       }
     },
     logout() {
       this.jwt = '';
       this.id = 0;
+      this.email = '';
+      this.name = '';
       sessionStorage.removeItem('jwt');
+      sessionStorage.removeItem('id');
+      sessionStorage.removeItem('email');
+      sessionStorage.removeItem('name');
       axios.defaults.headers.common['Authorization'] = '';
     },
   },
