@@ -21,12 +21,14 @@
           <th class="text-left">ID</th>
           <th class="text-right">First Name</th>
           <th class="text-right">Last Name</th>
+          <th class="text-right">Active</th>
+          <th class="text-right">Transaction Limit</th>
+          <th class="text-right">Day Limit</th>
           <th class="text-right">Birth Date</th>
           <th class="text-right">Phone Number</th>
           <th class="text-right">Email</th>
-          <th class="text-right">Active</th>
-          <th class="text-right">Day Limit</th>
-          <th class="text-right">Transaction Limit</th>
+          <th class="q-pa-r-md">Actions</th>
+
         </tr>
         </thead>
         <tbody>
