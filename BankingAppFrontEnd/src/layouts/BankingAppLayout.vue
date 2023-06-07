@@ -9,7 +9,7 @@
           BDRJ Bank
           <div class="text-subtitle1 " style="margin-top: -10px">Putting Fun in Funds since 2023</div>
         </q-toolbar-title>
-        <q-btn flat round dense icon="account_circle" size="30px" class="q-mt-lg" />
+        <q-btn v-if="userSessionStore.isLoggedIn" flat round dense icon="account_circle" label="Logout" size="20px" class="q-mt-lg" @click="logout" />
       </q-toolbar>
       <div class="nav-tabs" >
         <q-btn flat :class="{ active: activeTab === 'overview' }" label="overview" @click="setActiveTab('overview')" />
@@ -39,7 +39,8 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue';
+import { defineComponent } from 'vue'
+import { useUserSessionStore } from "stores/userSession";
 
 export default defineComponent({
   name: 'MainLayout',
@@ -52,9 +53,18 @@ export default defineComponent({
     setActiveTab(tab) {
       this.activeTab = tab;
       this.$router.push(tab); // Change route to the selected tab
+    },
+    logout(){
+      this.$router.push({ path: '/' });
+      this.userSessionStore.logout();
     }
+  },
+  setup() {
+    return{
+      userSessionStore: useUserSessionStore(),
+    } 
   }
-});
+})
 </script>
 
 <style scoped>

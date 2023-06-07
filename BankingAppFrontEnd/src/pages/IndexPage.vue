@@ -14,9 +14,18 @@
 <script>
 import { defineComponent } from 'vue'
 import LoginForm from 'components/auth/LoginForm.vue'
+import { useUserSessionStore } from "stores/userSession";
 
 export default defineComponent({
   name: 'IndexPage',
+  data() {
+    return {
+      
+    }
+  },
+  setup() {
+    //const userSessionStore = useUserSessionStore();
+  },
   components: { LoginForm },
 })
 </script>
