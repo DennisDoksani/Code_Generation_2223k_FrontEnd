@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <h2>Navigation header</h2>
-    <q-btn v-if="userSessionStore.isLoggedIn" label="Logout" @click="userSessionStore.logout"/>
+    <q-btn v-if="userSessionStore.isLoggedIn" label="Logout" @click="logout"/>
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -29,8 +29,8 @@ export default defineComponent({
   },
   methods: {
     logout(){
-      this.userSessionStore.logout()
-      this.$router.push("/")
+      this.$router.push({ path: '/' });
+      this.userSessionStore.logout();
     }
   },
 
