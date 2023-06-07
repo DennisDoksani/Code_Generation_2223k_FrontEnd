@@ -11,14 +11,18 @@
           </div>
         </div>
         <div class="row q-col-gutter-md q-pt-xs">
-          <div class="col-6">
+          <div class="col-4">
             <div class="text-subtitle">Created on:</div>
-            <div class="text-bold"> {{account.creationDate}}</div>
+            <div class="text-bold"> {{ account.creationDate }}</div>
           </div>
-          <div class="col-6">
+          <div class="col-4">
             <div class="text-subtitle">Absolute Limit:</div>
             <div class="text-bold">€{{ account.absoluteLimit.toFixed(2) }}</div>
           </div>
+          <button type="button" class="btn btn-primary mt-3 col-4"
+            @click="this.$router.push('/transfer/' + account.iban);">
+            Transfer
+          </button>
         </div>
       </q-card-section>
     </q-card>
@@ -45,6 +49,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
