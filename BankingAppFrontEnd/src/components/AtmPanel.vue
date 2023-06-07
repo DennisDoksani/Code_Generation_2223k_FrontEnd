@@ -56,7 +56,8 @@
             icon: 'check',
             position: 'top'
           })
-          this.closeDialog()
+          this.$emit('UpdateAccountBalance' )
+          this.$emit('closeDialogue')
         })
         .catch((error) => {
           this.$q.notify({
@@ -68,7 +69,7 @@
           console.log(error.response);
         });
       },
-      
+
       withdraw() {
           axios.post('/transactions/atm/withdraw', {
           accountFrom: this.selectedIban,
@@ -81,8 +82,8 @@
             icon: 'check',
             position: 'top'
           })
-          this.$emit(withdraw, this.amount)
-          this.closeDialog()
+          this.$emit('UpdateAccountBalance')
+          this.$emit('closeDialogue')
         })
         .catch((error) => {
           this.$q.notify({

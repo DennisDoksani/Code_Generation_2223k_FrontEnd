@@ -84,15 +84,22 @@
 <script>
 import axios from '/axios-basis.js';
 import {AccountTypes} from 'app/ConstantsContainer';
+import {useUserSessionStore} from 'stores/userSession';
 
 export default {
   name: 'CreateAccount',
+  setup() {
+    const userSessionStore = useUserSessionStore();
+    return {
+      userSessionStore,
+    };
+  },
   data() {
     return {
       errorMessage: '',
       isVisible: true,
       showProgressBar: false,
-      userId: 1,
+      userId: this.userSessionStore.getId, //TODO: for now
       accountType: null,
       accountTypes: AccountTypes,
       dayLimit: null,
@@ -103,6 +110,7 @@ export default {
   },
   methods: {
     dialogCloseClicked() {
+      this.isVisible = false;
       this.$emit('closeDialogue');
     },
     getUserById() {
