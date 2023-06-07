@@ -28,7 +28,11 @@
             v-model="password"
             label="Password"
             lazy-rules
-            :rules="[val => !!val || 'Please enter your password']"
+            :rules="[
+              val => !!val || 'Please enter your password',
+              val => val.length >= 8 || 'Password must be at least 8 characters long',
+              val => /[A-Z]/.test(val) || 'Password must contain at least one uppercase letter',
+            ]"
             type="password"
           />
           <q-input
