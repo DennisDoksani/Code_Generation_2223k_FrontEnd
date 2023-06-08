@@ -26,6 +26,7 @@ const routes = [{
                 path: '/transfer/:iban',
                 component: () =>
                     import ('pages/TransferPage.vue'),
+                props: true
             },
         ]
     },

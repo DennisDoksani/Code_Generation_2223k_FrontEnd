@@ -2,8 +2,7 @@
     <div class="card">
         <h1>Transfer</h1>
 
-        <TransferCard :iban="this.iban"></TransferCard>
-
+        <TransferCard :iban="iban"></TransferCard>
 
     </div>
 </template>

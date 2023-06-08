@@ -4,8 +4,8 @@
             <q-card-section class="q-pa-md d-flex flex-column align-center">
                 <q-form @submit="Transfer">
                     <div> {{ this.iban }} </div>
-                    <q-input v-model="transaction.amount" label="Amount" />
-                    <q-input v-model="transaction.accountTo" label="Receiver" lazy-rules
+                    <q-input v-model="amount" label="Amount" />
+                    <q-input v-model="accountTo" label="Receiver" lazy-rules
                         :rules="[val => !!val || 'Enter the account you want to transfer to']" />
 
 
@@ -19,7 +19,7 @@
 
 <script>
 
-import axios from 'axios';
+import axios from '/axios-basis.js';
 
 export default {
     name: 'TransferCard',
@@ -32,22 +32,29 @@ export default {
     },
     data() {
         return {
-            transaction: {
-                accountFrom: "NL01INHO0000000002",
-                accountTo: "",
-                amount: 0.00,
-            },
 
+            accountFrom: this.iban,
+            accountTo: "",
+            amount: 0.00,
 
         }
     },
     methods: {
         Transfer() {
             axios
-                .post("http://localhost/transactions", this.transaction)
+                .post("/transactions", {
+                    amount: this.amount,
+                    accountTo: this.accountTo,
+                    accountFrom: this.accountFrom
+                })
                 .then((res) => {
-                    console.log(res.data);
-                    this.$refs.form.reset();
+                    this.$q.notify({
+                        message: 'Transfer successful',
+                        color: 'positive',
+                        icon: 'check',
+                        position: 'top'
+                    })
+
                     this.$router.push("/overview");
                 })
                 .catch((error) => console.log(error));
