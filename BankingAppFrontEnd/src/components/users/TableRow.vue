@@ -11,11 +11,11 @@
   <td class="text-right">{{ user.email }}</td>
   <td class="text-center">
     <q-btn color="negative" label="Delete" @click="deleteUser(user.id)" class="q-ma-md"></q-btn>
-    <q-btn color="primary" label="Edit" @click="updateUserDetails(user.id)" class="q-ma-md"></q-btn>
+    <q-btn color="primary" label="Edit" @click="updateUserDetails(user.id.toString())" class="q-ma-md"></q-btn>
   </td>
   <div v-if="dialogVisible">
     <UpdatingUserDetails :selectedID="selectedID" @closeDialogue="onDialogueClose"
-      @updatedUserSuccessfully="onUpdatedSuccessFully" v-if="selectedID.length !== 0">
+      @updatedUserSuccessfully="onUpdatedSuccessFully" v-if="selectedID !== ''">
     </UpdatingUserDetails>
   </div>
 </template>
@@ -66,6 +66,7 @@ export default {
     },
 
     updateUserDetails(id) {
+      console.log("Update user called with id: ", id);
       this.dialogVisible = true;
       this.selectedID = id;
     },
