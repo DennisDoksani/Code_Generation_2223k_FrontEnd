@@ -94,6 +94,9 @@ export default {
       }
       return this.users; // Return the variable as it is, as it's already an array
     },
+    filteredUsersWithAccounts() {
+      return this.filteredUsers.filter(user => user.accounts && user.accounts.length > 0);
+    },
   },
   methods: {
     userUpdatedSuccessFully() {
@@ -102,30 +105,35 @@ export default {
     fetchUsers() {
       const limit = this.pagination.rowsPerPage;
       const offset = (this.pagination.page - 1) * limit;
-      this.$emit('loading', true);
+      const params = {
+        limit: limit,
+        offset: offset,
+      };
 
-      axios.get(this.currentUrl, {
-        params: {
-          limit: limit,
-          offset: offset,
-        },
-      }).then(response => {
-        this.users = response.data;
-        this.searchingUserNotfound = false;
-        this.$emit('loading', false);
-      }).catch(error => {
-        error.response.status === 404 ? this.searchingUserNotfound = true :
+      if (this.userType === 'Users with Accounts') {
+        params.hasAccounts = true;
+      } else if (this.userType === 'Users without Accounts') {
+        params.hasAccounts = false;
+      }
+
+      this.$emit('loading', true);
+      axios.get(this.currentUrl, { params })
+        .then(response => {
+          this.users = response.data;
           this.searchingUserNotfound = false;
-        if (error.response.status === 401)
-          this.$emit('unAuthorised');
-        if (error.response.status === 403)
-          this.$emit('forbidden');
-        this.$emit('loading', false);
-      });
+          this.$emit('loading', false);
+        }).catch(error => {
+          error.response.status === 404 ? this.searchingUserNotfound = true :
+            this.searchingUserNotfound = false;
+          if (error.response.status === 401)
+            this.$emit('unAuthorised');
+          if (error.response.status === 403)
+            this.$emit('forbidden');
+          this.$emit('loading', false);
+        });
     },
     searchBoxTextChanged() {
       if (this.search !== '' && !isNaN(this.search) && this.search.length <= 10) {
-        console.log(this.search);
         this.currentUrl = this.defaultUserUrl + '/' + this.search;
       } else {
         this.currentUrl = this.defaultUserUrl;
@@ -134,7 +142,13 @@ export default {
     },
     sortUsers() {
       this.pagination.page = 1;
-      this.currentUrl = this.defaultUserUrl + this.defaultUserSortingUrl + this.userType;
+      if (this.userType === 'Users with Accounts') {
+        this.currentUrl = this.defaultUserUrl + '?hasAccounts=true';
+      } else if (this.userType === 'Users without Accounts') {
+        this.currentUrl = this.defaultUserUrl + '?hasAccounts=false';
+      } else {
+        this.currentUrl = this.defaultUserUrl;
+      }
       this.fetchUsers();
     },
     previousPage() {
@@ -148,6 +162,7 @@ export default {
   },
 };
 </script>
+
 
 <style>
 .search-input {

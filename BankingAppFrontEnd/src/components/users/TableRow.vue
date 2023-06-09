@@ -16,16 +16,12 @@
   </td>
   <div v-if="dialogVisible">
     <UpdatingUserDetails :selectedID="selectedID" @closeDialogue="onDialogueClose"
-                         @updatedUserSuccessfully="onUpdatedSuccessFully" v-if="selectedID.length !== 0">
-    </UpdatingUserDetails>
-  </div>
-  <div v-if="createAccountDialogue">
-    <createAccount :selectedID="selectedID" @closeDialogue="onDialogueClose"
-                   @accountCreatedSuccessfully="onUpdatedSuccessFully"
-                   />
-  </div>
-  <div>
-
+                         @updatedUserSuccessfully="onUpdatedSuccessFully" v-if="selectedID.length !== 0"/>
+    <div v-if="createAccountDialogue">
+      <createAccount :selectedID="selectedID" @closeDialogue="onDialogueClose"
+                     @accountCreatedSuccessfully="onUpdatedSuccessFully"
+      />
+    </div>
   </div>
 </template>
 
@@ -83,6 +79,7 @@ export default {
     },
 
     updateUserDetails(id) {
+      console.log("Update user called with id: ", id);
       this.dialogVisible = true;
       this.selectedID = id;
     },
