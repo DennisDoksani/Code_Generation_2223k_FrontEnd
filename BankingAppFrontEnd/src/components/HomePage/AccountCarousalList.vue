@@ -11,7 +11,7 @@
       padding
       infinite
       arrows
-      height="220px"
+      height="280px"
       class="text-white shadow-1 rounded-borders q-pb-lg-lg"
     >
       <q-carousel-slide v-for="(account, index) in accounts" :key="index" :name="index">

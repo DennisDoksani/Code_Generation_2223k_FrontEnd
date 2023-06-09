@@ -11,21 +11,19 @@
           </div>
         </div>
         <div class="row q-col-gutter-md q-pt-xs">
-          <div class="col-5">
+          <div class="col-4">
             <div class="text-subtitle">Created on:</div>
             <div class="text-bold"> {{ account.creationDate }}</div>
           </div>
-          <div class="col-5">
+          <div class="col-4">
             <div class="text-subtitle">Absolute Limit:</div>
             <div class="text-bold">€{{ account.absoluteLimit.toFixed(2) }}</div>
           </div>
-          <div class="col-1">
-            <q-btn v-if="account.accountType == 'CURRENT'" label="ATM" color="secondary" class="q-mt-md" @click="openAtm(account.iban)"/>
+          <div class="col-4">
+            <q-btn v-if="account.accountType == 'CURRENT'" label="ATM" color="secondary" class="q-mt-sm" @click="openAtm(account.iban)"/>
+            <q-btn label="Transfer" color="amber-10" class="q-mt-sm" @click="this.$router.push('/transfer/' + account.iban)"/>
           </div>
-          <button type="button" class="btn btn-primary mt-3 col-4"
-            @click="this.$router.push('/transfer/' + account.iban);">
-            Transfer
-          </button>
+          
         </div>
       </q-card-section>
       <div v-if="dialogVisible">

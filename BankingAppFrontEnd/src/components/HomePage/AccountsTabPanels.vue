@@ -12,9 +12,9 @@
               Total Balance: <strong>€{{ totalBalanceWithAllAccounts.toFixed(2) }} </strong>
             </h5>
             <h6 class="text-subtitle1" style="margin-top: -40px;">
-              You have € {{ getTransactionLimitLeft.toFixed(2) }} transaction left for today</h6>
+              You can still withdraw € {{ getTransactionLimitLeft.toFixed(2) }} today</h6>
             <h6 class="text-subtitle1" style="margin-top: -40px;">
-              Your transaction limit is € {{ loggedUserTransactionLimit.toFixed(2) }}
+              Your total transaction limit is € {{ loggedUserTransactionLimit.toFixed(2) }}
             </h6>
           </div>
           <div class="col-6 text-right">
