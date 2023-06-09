@@ -12,11 +12,7 @@ const routes = [{
             { path: '/accounts', component: () => AccountsOverviewPage },
             { path: '/register', component: () => RegistrationPage },
             { path: '/overview', component: () => LoggedUserPage },
-            {
-                path: '/newaccount',
-                component: () =>
-                    import ('components/accounts/CreateAccount.vue')
-            },
+
             {
                 path: '/users',
                 component: () =>

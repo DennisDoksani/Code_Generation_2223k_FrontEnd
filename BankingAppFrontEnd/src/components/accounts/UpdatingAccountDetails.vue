@@ -37,7 +37,7 @@
               </div>
               <div class="row q-col-gutter-md q-mb-md">
                 <div class="col-6">
-                  <q-input outlined v-model.number="selectedAccount.accountHolder.dayLimit"
+                  <q-input outlined v-model="selectedAccount.accountHolder.dayLimit"
                            type="number"
                            label="Day Limit" lazy-rules
                            :rules="[val => val>=0 || 'Day limit cannot be Negative',
@@ -45,7 +45,7 @@
                   />
                 </div>
                 <div class="col-6">
-                  <q-input outlined v-model.number="selectedAccount.accountHolder.transactionLimit"
+                  <q-input outlined v-model="selectedAccount.accountHolder.transactionLimit"
                            type="number"
                            label="Transaction Limit"
                            lazy-rules

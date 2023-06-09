@@ -67,7 +67,7 @@
             </div>
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn color="primary" label="Cancel" />
+            <q-btn color="primary" label="Cancel" @click="onCancelClicked" />
             <q-btn color="primary" type="submit">
               <q-spinner v-if="showProgressBar" size="20px" color="white" />
               <div v-else>
@@ -84,22 +84,21 @@
 <script>
 import axios from '/axios-basis.js';
 import {AccountTypes} from 'app/ConstantsContainer';
-import {useUserSessionStore} from 'stores/userSession';
 
 export default {
   name: 'CreateAccount',
-  setup() {
-    const userSessionStore = useUserSessionStore();
-    return {
-      userSessionStore,
-    };
+  props: {
+    selectedID: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
       errorMessage: '',
       isVisible: true,
       showProgressBar: false,
-      userId: this.userSessionStore.getId, //TODO: for now
+      userId: this.selectedID, // this is the id of the user for whom we are creating the account
       accountType: null,
       accountTypes: AccountTypes,
       dayLimit: null,
@@ -110,7 +109,6 @@ export default {
   },
   methods: {
     dialogCloseClicked() {
-      this.isVisible = false;
       this.$emit('closeDialogue');
     },
     getUserById() {
@@ -128,6 +126,16 @@ export default {
       setTimeout(() => {
         this.sendPostRequest();
       }, 2000);
+    },
+    onCancelClicked() {
+      this.accountHolderFirstName = null;
+      this.accountHolderLastName = null;
+      this.accountType = null;
+      this.dayLimit = null;
+      this.transactionLimit = null;
+      this.errorMessage = '';
+      this.$emit('closeDialogue');
+
     },
     sendPostRequest() {
       axios.post('/accounts', {
