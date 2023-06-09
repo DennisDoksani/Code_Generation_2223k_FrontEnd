@@ -1,24 +1,21 @@
 <template>
-    <div class="q-pa-md">
-      <div style="display: flex; align-items: center;">
-        <div style="flex: 1;">
-          <q-input v-model="search" label="Search By ID" dense class="search-input"
-                   @update:model-value="searchBoxTextChanged"
-                   lazy-rules
-                   :rules="[val => val.length<19 || 'ID cannot be more than 65 characters']"
-          />
-        </div>
-        <div>
-          <q-select borderless v-model="userType" :options="userTypes" label="Sort Users"
-                    class="sorting-select"
-                    @update:model-value="sortUsers"></q-select>
-        </div>
+  <div class="q-pa-md">
+    <div style="display: flex; align-items: center;">
+      <div style="flex: 1;">
+        <q-input v-model="search" label="Search By ID" dense class="search-input"
+          @update:model-value="searchBoxTextChanged" lazy-rules
+          :rules="[val => val.length < 11 || 'ID cannot be more than 10 characters']" />
       </div>
-      <q-markup-table
-      >
-        <thead>
+      <div>
+        <q-select borderless v-model="userType" :options="userTypes" label="Filter Users" class="sorting-select"
+          @update:model-value="sortUsers"></q-select>
+      </div>
+    </div>
+    <q-markup-table>
+      <thead>
         <tr>
           <th class="text-left">ID</th>
+          <th class="text-right">BSN</th>
           <th class="text-right">First Name</th>
           <th class="text-right">Last Name</th>
           <th class="text-right">Active</th>
@@ -30,8 +27,8 @@
           <th class="q-pa-r-md">Actions</th>
 
         </tr>
-        </thead>
-        <tbody>
+      </thead>
+      <tbody>
         <template v-if="filteredUsers.length === 0">
           <tr>
             <td colspan="5" class="text-center">No Users with Bank Accounts at the moment</td>
@@ -46,27 +43,24 @@
         </template>
         <template v-else>
           <tr v-for="user in filteredUsers" v-bind:key="user.id">
-                      <!--Do I keep the UpdatedStatusSuccessFully??? line 48-->
-            <TableRow :user="user"
-                      @UpdatedStatusSuccessFully="userUpdatedSuccessFully"></TableRow>
+            <!--Do I keep the UpdatedStatusSuccessFully??? line 48-->
+            <TableRow :user="user" @UpdatedStatusSuccessFully="userUpdatedSuccessFully"></TableRow>
           </tr>
         </template>
-        </tbody>
-      </q-markup-table>
-      <!-- Pagination controls -->
-      <div class="pagination-controls float-right q-pa-sm">
-        <q-btn @click="previousPage" :disable="this.pagination.page === 1"
-               label="Previous"></q-btn>
-        <q-btn @click="nextPage" :disable="filteredUsers.length!==this.pagination.rowsPerPage"
-               label="Next"></q-btn>
-      </div>
+      </tbody>
+    </q-markup-table>
+    <!-- Pagination controls -->
+    <div class="pagination-controls float-right q-pa-sm">
+      <q-btn @click="previousPage" :disable="this.pagination.page === 1" label="Previous"></q-btn>
+      <q-btn @click="nextPage" :disable="filteredUsers.length !== this.pagination.rowsPerPage" label="Next"></q-btn>
     </div>
-  </template>
+  </div>
+</template>
 
 <script>
 import axios from '/axios-basis.js';
 import TableRow from 'components/users/TableRow.vue';
-import {UserTypes} from 'app/ConstantsContainer';
+import { UserTypes } from 'app/ConstantsContainer';
 
 export default {
   name: 'UsersOverviewTable',
@@ -130,11 +124,12 @@ export default {
       });
     },
     searchBoxTextChanged() {
-      if (this.search.length >= 18) {
+      if (this.search !== '' && !isNaN(this.search) && this.search.length <= 10) {
         console.log(this.search);
         this.currentUrl = this.defaultUserUrl + '/' + this.search;
-      } else
+      } else {
         this.currentUrl = this.defaultUserUrl;
+      }
       this.fetchUsers();
     },
     sortUsers() {
@@ -156,10 +151,12 @@ export default {
 
 <style>
 .search-input {
-  max-width: 700px; /* Adjust the value as per your preference */
+  max-width: 700px;
+  /* Adjust the value as per your preference */
 }
 
 .sorting-select {
-  min-width: 400px; /* Adjust the value as per your preference */
+  min-width: 400px;
+  /* Adjust the value as per your preference */
 }
 </style>
