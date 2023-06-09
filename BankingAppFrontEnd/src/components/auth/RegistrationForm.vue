@@ -120,13 +120,23 @@
         this.$router.push("/")
       })
       .catch((error) => {
-        console.log(error);
-        this.$q.notify({
-          message: error.response.data.message || 'Registration failed, try again later',
+        if(error.response){
+          this.$q.notify({
           color: 'negative',
+          message: error.response.data.message,
           icon: 'warning',
           position: 'top'
-        })
+          })
+        }
+        else{
+          this.$q.notify({
+          color: 'negative',
+          message: 'Connection error',
+          icon: 'warning',
+          position: 'top'
+          })
+        }
+        console.log(error);
       });
     }
   } 

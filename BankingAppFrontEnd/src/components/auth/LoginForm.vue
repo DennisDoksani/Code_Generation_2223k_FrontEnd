@@ -15,9 +15,9 @@
             :rules="[val => !!val || 'Please enter your password']"
             type="password"
           />
-          <q-btn type="submit" label="Login" class="q-mt-md" />
+          <q-btn color="primary" type="submit" label="Login" class="q-mt-md" />
         </q-form>
-        <RouterLink to="/register" class="q-mt-md">Don't have an account? Register here.</RouterLink>
+        <RouterLink to="/register" class="q-mt-md" id="registerlink">Don't have an account? Register here.</RouterLink>
       </q-card-section>
     </q-card>
 </template>
@@ -51,12 +51,22 @@
 
       })
       .catch((error) => {
-        this.$q.notify({
+        if(error.response){
+          this.$q.notify({
           color: 'negative',
-          message: error.response.data.message || 'Login failed, try again later',
+          message: error.response.data.message,
           icon: 'warning',
           position: 'top'
-        })
+          })
+        }
+        else{
+          this.$q.notify({
+          color: 'negative',
+          message: 'Connection error',
+          icon: 'warning',
+          position: 'top'
+          })
+        }
         console.log(error);
       });
     }
@@ -67,5 +77,10 @@
   <style>
   .q-card {
     width: 100%
+  }
+
+  #registerlink{
+    text-decoration: none;
+    color: white;
   }
   </style>
