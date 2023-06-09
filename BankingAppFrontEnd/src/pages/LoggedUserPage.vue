@@ -7,6 +7,7 @@
         </div>
       </div>
       <h2>Place for Transactions</h2>
+      <!--<TransactionTable></TransactionTable>-->
     </div>
     <div v-else>
       <h2 >Not logged in</h2>
@@ -21,6 +22,7 @@
 <script>
 import AccountsTabPanels from 'components/HomePage/AccountsTabPanels.vue';
 import {useUserSessionStore} from 'stores/userSession';
+//import TransactionTable from 'src/components/transactions/TransactionTabPanels.vue';
 
 export default {
   name: 'LoggedUserOverViewPage',
@@ -31,6 +33,7 @@ export default {
   },
   components: {
     AccountsTabPanels,
+    //TransactionTable,
   },
   data() {
     return {};
@@ -39,6 +42,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

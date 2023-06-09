@@ -1,22 +1,27 @@
 <template>
-    <div class="card">
+    <div class="q-pa-md">
         <h1>Transfer</h1>
 
-        <div class="input-group mb-3">
-            <span class="input-group-text">Amount</span>
-            <input type="number" class="form-control" />
+        <TransferCard :iban="iban"></TransferCard>
 
-        </div>
     </div>
 </template>
 
 <script>
 
-
+import TransferCard from 'components/transactions/TransferCard.vue'
 
 export default {
     name: 'TransferPage',
-
+    components: {
+        TransferCard
+    },
+    props: {
+        iban: {
+            type: String,
+            required: true,
+        }
+    }
 }
 </script>
 

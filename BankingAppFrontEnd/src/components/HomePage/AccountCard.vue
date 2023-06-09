@@ -13,7 +13,7 @@
         <div class="row q-col-gutter-md q-pt-xs">
           <div class="col-5">
             <div class="text-subtitle">Created on:</div>
-            <div class="text-bold"> {{account.creationDate}}</div>
+            <div class="text-bold"> {{ account.creationDate }}</div>
           </div>
           <div class="col-5">
             <div class="text-subtitle">Absolute Limit:</div>
@@ -22,6 +22,10 @@
           <div class="col-1">
             <q-btn v-if="account.accountType == 'CURRENT'" label="ATM" color="secondary" class="q-mt-md" @click="openAtm(account.iban)"/>
           </div>
+          <button type="button" class="btn btn-primary mt-3 col-4"
+            @click="this.$router.push('/transfer/' + account.iban);">
+            Transfer
+          </button>
         </div>
       </q-card-section>
       <div v-if="dialogVisible">
@@ -70,6 +74,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
