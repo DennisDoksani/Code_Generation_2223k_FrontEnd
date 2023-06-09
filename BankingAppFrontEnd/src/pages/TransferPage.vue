@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="q-pa-md">
         <h1>Transfer</h1>
 
         <TransferCard :iban="iban"></TransferCard>
