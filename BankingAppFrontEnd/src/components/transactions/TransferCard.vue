@@ -1,7 +1,7 @@
 <template>
     <div>
         <q-card>
-            <q-card-section class="q-pa-md d-flex flex-column align-center">
+            <q-card-section class="q-pa-md d-flex flex-column flex-center">
                 <q-form @submit="Transfer">
                     <div> {{ this.iban }} </div>
                     <q-input v-model="amount" label="Amount" lazy-rules
