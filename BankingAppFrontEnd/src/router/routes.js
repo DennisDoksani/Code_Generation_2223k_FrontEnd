@@ -3,6 +3,7 @@ import IndexPage from 'pages/IndexPage.vue'
 import AccountsOverviewPage from 'pages/AccountsOverviewPage.vue'
 import RegistrationPage from 'pages/RegistrationPage.vue'
 import LoggedUserPage from 'pages/LoggedUserPage.vue'
+import TransactionOverviewPageVue from 'src/pages/TransactionOverviewPage.vue'
 
 const routes = [{
         path: '/',
@@ -28,6 +29,10 @@ const routes = [{
                     import ('pages/TransferPage.vue'),
                 props: true
             },
+            {
+                path: '/transactions',
+                component: () => TransactionOverviewPageVue
+            }
         ]
     },
 
