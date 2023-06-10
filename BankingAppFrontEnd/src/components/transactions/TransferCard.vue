@@ -1,6 +1,7 @@
 <template>
     <div>
         <q-card>
+
             <q-card-section class="q-pa-md d-flex flex-column flex-center">
                 <q-form @submit="Transfer">
                     <div> {{ this.iban }} </div>
@@ -58,7 +59,25 @@ export default {
 
                     this.$router.push("/overview");
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => {
+                    if(error.response){
+                    this.$q.notify({
+                    color: 'negative',
+                    message: error.response.data.message,
+                    icon: 'warning',
+                    position: 'top'
+                    })
+                    }
+                    else{
+                    this.$q.notify({
+                    color: 'negative',
+                    message: 'Connection error',
+                    icon: 'warning',
+                    position: 'top'
+                    })
+                    }
+                    console.log(error);
+            });
         }
     }
 
