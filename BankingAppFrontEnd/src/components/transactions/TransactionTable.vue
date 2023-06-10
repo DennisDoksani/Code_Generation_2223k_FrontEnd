@@ -28,7 +28,7 @@
             <td>{{ transaction.accountFrom.iban }}</td>
             <td>{{ transaction.accountTo.iban }}</td>
             <td>{{ transaction.date }}</td>
-            <td>{{ transaction.timestamp }}</td>
+            <td>{{ getTimeStampFromTransactionTimeStamp(transaction.timestamp) }}</td>
         </tr>
     </table>
 </template>
@@ -47,7 +47,7 @@ export default {
             amountMax: null,
             dateBefore: null,
             dateAfter: null,
-            requestString: '/transactions?'
+            requestString: ''
         }
     }, methods: {
         getTransactions() {
@@ -99,6 +99,11 @@ export default {
         }, showFilters() {
             const filterWindow = document.getElementById('filter-window');
             filterWindow.style = 'display: block';
+        }, getTimeStampFromTransactionTimeStamp(timestamp) {
+            const date = new Date(timestamp);
+            const time = date.getHours() + ':' + date.getMinutes();
+            console.log(timestamp);
+            return time;
         }
     }, mounted() {
         this.getTransactions()
