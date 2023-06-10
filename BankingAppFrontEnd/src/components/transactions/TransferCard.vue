@@ -3,16 +3,20 @@
         <q-card>
 
             <q-card-section class="q-pa-md d-flex flex-column flex-center">
-                <q-form @submit="Transfer">
+                <q-form @submit="transfer">
                     <div> {{ this.iban }} </div>
                     <q-input v-model="amount" label="Amount" lazy-rules
                         :rules="[val => !!val || 'Enter the amount you want to transfer']" />
                     <q-input v-model="accountTo" label="Receiver" lazy-rules
                         :rules="[val => !!val || 'Enter the account you want to transfer to']" />
-
-
                     <q-btn type="submit" label="Confirm transfer" class="q-mt-md" />
                 </q-form>
+
+                <q-input v-model="searchName" 
+                    label="Search for an account" 
+
+                    />
+
 
             </q-card-section>
         </q-card>
@@ -34,15 +38,14 @@ export default {
     },
     data() {
         return {
-
             accountFrom: this.iban,
             accountTo: "",
             amount: 0.00,
-
+            searchName: "",
         }
     },
     methods: {
-        Transfer() {
+        transfer() {
             axios
                 .post("/transactions", {
                     amount: this.amount,
@@ -78,7 +81,12 @@ export default {
                     }
                     console.log(error);
             });
-        }
+        },
+        searchIban(){
+
+        },
+
+
     }
 
 }
