@@ -1,6 +1,6 @@
 <template>
-    <button>Filter results</button>
-    <q-form @submit="getTransactions">
+    <button type="button" @click="showFilters">Filter results</button>
+    <q-form @submit="getTransactions" style="display: none" id="filter-window">
         <q-input v-model="ibanTo" label="Account to" lazy-rules :rules="['Enter IBAN of the receiving account']" />
         <q-input v-model="ibanFrom" label="Account from" lazy-rules
             :rules="['Enter IBAN of the account that transfered the money']" />
@@ -12,7 +12,6 @@
             val => new Date(val) <= new Date() || 'Date can not be in the future']" type="date" />
         <q-input v-model="dateBefore" label="Made before" lazy-rules :rules="['Enter the date the transaction was made before',
             val => new Date(val) <= new Date() || 'Date can not be in the future']" type="date" />
-
 
         <q-btn type="submit" label="Filter" class="q-mt-md" />
     </q-form>
@@ -60,9 +59,25 @@ export default {
                         this.transactions = response.data;
                         resolve();
                     }).catch((error) => {
+                        if (error.response) {
+                            this.$q.notify({
+                                color: 'negative',
+                                message: error.response.data.message,
+                                icon: 'warning',
+                                position: 'top'
+                            })
+                        }
+                        else {
+                            this.$q.notify({
+                                color: 'negative',
+                                message: 'Connection error',
+                                icon: 'warning',
+                                position: 'top'
+                            })
+                        }
                         console.log(error);
-                        reject;
-                    })
+                        reject();
+                    });
             })
         }, buildRequestString() {
             this.requestString = '/transactions?';
@@ -81,6 +96,9 @@ export default {
                 this.requestString += ('dateBefore=' + this.dateBefore)
 
             console.log(this.requestString);
+        }, showFilters() {
+            const filterWindow = document.getElementById('filter-window');
+            filterWindow.style = 'display: block';
         }
     }, mounted() {
         this.getTransactions()

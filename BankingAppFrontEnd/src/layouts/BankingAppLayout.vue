@@ -9,12 +9,15 @@
           BDRJ Bank
           <div class="text-subtitle1 " style="margin-top: -10px">Putting Fun in Funds since 2023</div>
         </q-toolbar-title>
-        <q-btn v-if="userSessionStore.isLoggedIn" flat round dense icon="account_circle" label="Logout" size="20px" class="q-mt-lg" @click="logout" />
+        <q-btn v-if="userSessionStore.isLoggedIn" flat round dense icon="account_circle" label="Logout" size="20px"
+          class="q-mt-lg" @click="logout" />
       </q-toolbar>
-      <div class="nav-tabs" >
+      <div class="nav-tabs">
         <q-btn flat :class="{ active: activeTab === 'overview' }" label="overview" @click="setActiveTab('overview')" />
         <q-btn flat :class="{ active: activeTab === 'accounts' }" label="Accounts" @click="setActiveTab('accounts')" />
         <q-btn flat :class="{ active: activeTab === 'users' }" label="users" @click="setActiveTab('users')" />
+        <q-btn flat :class="{ active: activeTab === 'transactions' }" label="transactions"
+          @click="setActiveTab('transactions')" />
       </div>
     </q-header>
     <div class="content-wrap">
@@ -22,7 +25,7 @@
         <router-view />
       </q-page-container>
     </div>
-      <!-- <q-footer elevated class="bg-grey-8 text-white footer-flex">
+    <!-- <q-footer elevated class="bg-grey-8 text-white footer-flex">
         <q-toolbar class="toolbar-center">
           <div class="footer-content">
             <q-list inline dense separator class="q-mt-sm">
@@ -35,7 +38,7 @@
           </div>
         </q-toolbar>
       </q-footer> -->
-    
+
   </q-layout>
 </template>
 
@@ -55,15 +58,15 @@ export default defineComponent({
       this.activeTab = tab;
       this.$router.push(tab); // Change route to the selected tab
     },
-    logout(){
+    logout() {
       this.$router.push({ path: '/' });
       this.userSessionStore.logout();
     }
   },
   setup() {
-    return{
+    return {
       userSessionStore: useUserSessionStore(),
-    } 
+    }
   }
 })
 </script>
@@ -76,7 +79,8 @@ export default defineComponent({
 }
 
 .active {
-  background: #c0c0c0; /* Change this to your preferred active tab color */
+  background: #c0c0c0;
+  /* Change this to your preferred active tab color */
 }
 
 .bg-grey-8 {
@@ -125,5 +129,4 @@ export default defineComponent({
   height: 100px;
   overflow-y: auto;
 }
-
 </style>

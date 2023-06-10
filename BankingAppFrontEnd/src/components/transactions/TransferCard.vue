@@ -58,7 +58,26 @@ export default {
 
                     this.$router.push("/overview");
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => {
+                    if (error.response) {
+                        this.$q.notify({
+                            color: 'negative',
+                            message: error.response.data.message,
+                            icon: 'warning',
+                            position: 'top'
+                        })
+                    }
+                    else {
+                        this.$q.notify({
+                            color: 'negative',
+                            message: 'Connection error',
+                            icon: 'warning',
+                            position: 'top'
+                        })
+                    }
+                    console.log(error);
+                    reject();
+                });
         }
     }
 
