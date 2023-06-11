@@ -1,6 +1,6 @@
 <template>
     <button type="button" @click="showFilters">Filter results</button>
-    <q-form @submit="getTransactions" style="display: none" id="filter-window">
+    <q-form @submit="getTransactions" id="filter-window">
         <q-input v-model="ibanTo" label="Account to" lazy-rules :rules="['Enter IBAN of the receiving account']" />
         <q-input v-model="ibanFrom" label="Account from" lazy-rules
             :rules="['Enter IBAN of the account that transfered the money']" />
