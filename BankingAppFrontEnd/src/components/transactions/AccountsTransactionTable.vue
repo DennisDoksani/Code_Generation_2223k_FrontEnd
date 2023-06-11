@@ -12,7 +12,7 @@
             <td>{{ transaction.accountFrom.iban }}</td>
             <td>{{ transaction.accountTo.iban }}</td>
             <td>{{ transaction.date }}</td>
-            <td>{{ transaction.timestamp }}</td>
+            <td>{{ transaction.time.slice(0,5) }}</td>
         </tr>
     </table>
 </template>

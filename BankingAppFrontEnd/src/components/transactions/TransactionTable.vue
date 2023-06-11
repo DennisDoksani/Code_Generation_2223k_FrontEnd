@@ -1,5 +1,5 @@
 <template>
-    <button type="button" @click="showFilters">Filter results</button>
+    <button type="button" @click="toggleFilters">Filter results</button>
     <q-form @submit="getTransactions" id="filter-window">
         <q-input v-model="ibanTo" label="Account to" lazy-rules :rules="['Enter IBAN of the receiving account']" />
         <q-input v-model="ibanFrom" label="Account from" lazy-rules
@@ -28,7 +28,7 @@
             <td>{{ transaction.accountFrom.iban }}</td>
             <td>{{ transaction.accountTo.iban }}</td>
             <td>{{ transaction.date }}</td>
-            <td>{{ getTimeStampFromTransactionTimeStamp(transaction.timestamp) }}</td>
+            <td>{{ transaction.time.slice(0,5) }}</td>
         </tr>
     </table>
 </template>
@@ -79,7 +79,8 @@ export default {
                         reject();
                     });
             })
-        }, buildRequestString() {
+        }, 
+        buildRequestString() {
             this.requestString = '/transactions?';
 
             if (this.ibanTo != null && this.ibanTo != '')
@@ -96,10 +97,19 @@ export default {
                 this.requestString += ('dateBefore=' + this.dateBefore)
 
             console.log(this.requestString);
-        }, showFilters() {
+        }, 
+        toggleFilters() {
             const filterWindow = document.getElementById('filter-window');
-            filterWindow.style = 'display: block';
-        }, getTimeStampFromTransactionTimeStamp(timestamp) {
+            if (filterWindow.style.display == 'block') {
+                filterWindow.style = 'display: none';
+            }
+            else {
+                filterWindow.style = 'display: block';
+            }
+                
+            
+        }, 
+        getTimeStampFromTransactionTimeStamp(timestamp) {
             const date = new Date(timestamp);
             const time = date.getHours() + ':' + date.getMinutes();
             console.log(timestamp);
