@@ -7,7 +7,7 @@
         </q-avatar>
         <q-toolbar-title class="q-pt-lg" style="margin-left: -20px">
           BDRJ Bank
-          <div class="text-subtitle1 " style="margin-top: -10px">Putting Fun in Funds since 2023</div>
+          <div class="text-subtitle1 " style="margin-top: -10px">Putting the 'fun' in funds</div>
         </q-toolbar-title>
         <q-btn v-if="userSessionStore.isLoggedIn" flat round dense icon="account_circle" label="Logout" size="20px" class="q-mt-lg" @click="logout" />
       </q-toolbar>
@@ -21,21 +21,7 @@
       <q-page-container>
         <router-view />
       </q-page-container>
-    </div>
-      <!-- <q-footer elevated class="bg-grey-8 text-white footer-flex">
-        <q-toolbar class="toolbar-center">
-          <div class="footer-content">
-            <q-list inline dense separator class="q-mt-sm">
-              <router-link to="/overview"><q-item clickable v-ripple><q-item-section>Overview</q-item-section></q-item></router-link>
-              <router-link to="/accounts"><q-item clickable v-ripple><q-item-section>Accounts</q-item-section></q-item></router-link>
-              <router-link to="/users"><q-item clickable v-ripple><q-item-section>Users</q-item-section></q-item></router-link>
-            </q-list>
-            <div class="text-h6">© 2023 BDRJ Bank</div>
-            <div class="text-caption">Contact: info@bdrjbank.com | +1 800 123 4567</div>
-          </div>
-        </q-toolbar>
-      </q-footer> -->
-    
+    </div> 
   </q-layout>
 </template>
 
