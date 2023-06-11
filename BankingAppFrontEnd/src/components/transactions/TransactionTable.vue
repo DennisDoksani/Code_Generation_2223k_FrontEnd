@@ -109,12 +109,6 @@ export default {
                 
             
         }, 
-        getTimeStampFromTransactionTimeStamp(timestamp) {
-            const date = new Date(timestamp);
-            const time = date.getHours() + ':' + date.getMinutes();
-            console.log(timestamp);
-            return time;
-        }
     }, mounted() {
         this.getTransactions()
     }
