@@ -76,7 +76,7 @@ export default {
         }).catch((error) => {
           this.$q.notify({
             color: 'negative',
-            message: error.data.message, //Todo: verify
+            message: 'User has active bank accounts and cannot be deleted.',
           });
         });
       });
