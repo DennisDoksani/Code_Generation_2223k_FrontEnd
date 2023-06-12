@@ -1,6 +1,6 @@
 <template>
-    <button>Filter results</button>
-    <q-form @submit="getTransactions">
+    <button type="button" @click="toggleFilters">Filter results</button>
+    <q-form @submit="getTransactions" id="filter-window">
         <q-input v-model="ibanTo" label="Account to" lazy-rules :rules="['Enter IBAN of the receiving account']" />
         <q-input v-model="ibanFrom" label="Account from" lazy-rules
             :rules="['Enter IBAN of the account that transfered the money']" />
@@ -12,7 +12,6 @@
             val => new Date(val) <= new Date() || 'Date can not be in the future']" type="date" />
         <q-input v-model="dateBefore" label="Made before" lazy-rules :rules="['Enter the date the transaction was made before',
             val => new Date(val) <= new Date() || 'Date can not be in the future']" type="date" />
-
 
         <q-btn type="submit" label="Filter" class="q-mt-md" />
     </q-form>
@@ -29,7 +28,7 @@
             <td>{{ transaction.accountFrom.iban }}</td>
             <td>{{ transaction.accountTo.iban }}</td>
             <td>{{ transaction.date }}</td>
-            <td>{{ transaction.timestamp }}</td>
+            <td>{{ transaction.time.slice(0,5) }}</td>
         </tr>
     </table>
 </template>
@@ -48,7 +47,7 @@ export default {
             amountMax: null,
             dateBefore: null,
             dateAfter: null,
-            requestString: '/transactions?'
+            requestString: ''
         }
     }, methods: {
         getTransactions() {
@@ -60,11 +59,28 @@ export default {
                         this.transactions = response.data;
                         resolve();
                     }).catch((error) => {
+                        if (error.response) {
+                            this.$q.notify({
+                                color: 'negative',
+                                message: error.response.data.message,
+                                icon: 'warning',
+                                position: 'top'
+                            })
+                        }
+                        else {
+                            this.$q.notify({
+                                color: 'negative',
+                                message: 'Connection error',
+                                icon: 'warning',
+                                position: 'top'
+                            })
+                        }
                         console.log(error);
-                        reject;
-                    })
+                        reject();
+                    });
             })
-        }, buildRequestString() {
+        }, 
+        buildRequestString() {
             this.requestString = '/transactions?';
 
             if (this.ibanTo != null && this.ibanTo != '')
@@ -81,7 +97,18 @@ export default {
                 this.requestString += ('dateBefore=' + this.dateBefore)
 
             console.log(this.requestString);
-        }
+        }, 
+        toggleFilters() {
+            const filterWindow = document.getElementById('filter-window');
+            if (filterWindow.style.display == 'block') {
+                filterWindow.style = 'display: none';
+            }
+            else {
+                filterWindow.style = 'display: block';
+            }
+                
+            
+        }, 
     }, mounted() {
         this.getTransactions()
     }
