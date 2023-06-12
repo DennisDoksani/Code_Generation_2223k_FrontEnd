@@ -16,13 +16,12 @@
   </td>
   <div v-if="dialogVisible">
     <UpdatingUserDetails :selectedID="selectedID" @closeDialogue="onDialogueClose"
-                         @updatedUserSuccessfully="onUpdatedSuccessFully" v-if="selectedID.length !== 0">
+      @updatedUserSuccessfully="onUpdatedSuccessFully" @userUpdated="$emit('userUpdated')" v-if="selectedID.length !== 0">
     </UpdatingUserDetails>
   </div>
   <div v-if="createAccountDialogue">
     <createAccount :selectedID="selectedID" @closeDialogue="onDialogueClose"
-                   @accountCreatedSuccessfully="onUpdatedSuccessFully"
-    />
+      @accountCreatedSuccessfully="onUpdatedSuccessFully" />
   </div>
   <div>
 
