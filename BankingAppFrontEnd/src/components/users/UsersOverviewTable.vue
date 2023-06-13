@@ -43,8 +43,8 @@
         </template>
         <template v-else>
           <tr v-for="user in filteredUsers" v-bind:key="user.id">
-            <!--Do I keep the UpdatedStatusSuccessFully??? line 48-->
-            <TableRow :user="user" @UpdatedStatusSuccessFully="userUpdatedSuccessFully"></TableRow>
+            <TableRow :user="user" @userDeleted="fetchUsers" @userUpdated="fetchUsers" @userEdit="editUser"
+              @accountCreation="createAccount"></TableRow>
           </tr>
         </template>
       </tbody>

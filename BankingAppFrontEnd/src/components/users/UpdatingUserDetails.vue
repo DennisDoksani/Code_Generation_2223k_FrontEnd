@@ -22,15 +22,11 @@
               </div>
               <div class="row q-col-gutter-md q-mb-md">
                 <div class="col-6">
-                  <q-input outlined v-model="selectedUser.userHolder.userId" label="User ID" lazy-rules
-                    :rules="[val => !!val || 'User ID cannot be empty']" />
-                </div>
-                <div class="col-6">
                   <q-input outlined v-model="selectedUser.userHolder.lastName" label="Last Name" lazy-rules
                     :rules="[val => !!val || 'Last name cannot be empty']" />
                 </div>
                 <div class="col-6">
-                  <q-input outlined v-model="selectedUser.userHolder.bsn" label="BSN" lazy-rules
+                  <q-input outlined v-model="selectedUser.userHolder.bsn" readonly label="BSN"
                     :rules="[val => !!val || 'BSN cannot be empty']" />
                 </div>
               </div>
@@ -115,10 +111,10 @@ export default {
     };
   },
   watch: {
-    'selectedUser.userHolder.email': function() {
+    'selectedUser.userHolder.email': function () {
       this.checkFormValidity();
     },
-    'selectedUser.userHolder.phoneNumber': function() {
+    'selectedUser.userHolder.phoneNumber': function () {
       this.checkFormValidity();
     }
   },
@@ -178,6 +174,7 @@ export default {
                 type: 'positive',
                 message: 'User Updated Successfully',
               });
+              this.$emit('userUpdated'); // Emit the userUpdated event here
               this.dialogCloseClicked();
             } else {
               console.error('Failed to update user', response);
