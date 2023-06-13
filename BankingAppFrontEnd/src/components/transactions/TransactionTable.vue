@@ -28,7 +28,7 @@
             <td>{{ transaction.accountFrom.iban }}</td>
             <td>{{ transaction.accountTo.iban }}</td>
             <td>{{ transaction.date }}</td>
-            <td>{{ transaction.time.slice(0,5) }}</td>
+            <td>{{ transaction.time.slice(0, 5) }}</td>
         </tr>
     </table>
 </template>
@@ -79,7 +79,7 @@ export default {
                         reject();
                     });
             })
-        }, 
+        },
         buildRequestString() {
             this.requestString = '/transactions?';
 
@@ -97,7 +97,7 @@ export default {
                 this.requestString += ('dateBefore=' + this.dateBefore)
 
             console.log(this.requestString);
-        }, 
+        },
         toggleFilters() {
             const filterWindow = document.getElementById('filter-window');
             if (filterWindow.style.display == 'block') {
@@ -106,9 +106,9 @@ export default {
             else {
                 filterWindow.style = 'display: block';
             }
-                
-            
-        }, 
+
+
+        },
     }, mounted() {
         this.getTransactions()
     }

@@ -56,7 +56,7 @@ export default defineComponent({
   methods: {
     setActiveTab(tab) {
       this.activeTab = tab;
-      this.$router.push(tab); // Change route to the selected tab
+      this.$router.push({ path: tab }); // Change route to the selected tab
     },
     logout() {
       this.$router.push({ path: '/' });
