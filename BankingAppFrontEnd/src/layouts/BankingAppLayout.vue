@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout >
     <q-header elevated class="bg-green">
       <q-toolbar>
         <q-avatar size="80px">
@@ -10,23 +10,37 @@
           <div class="text-subtitle1 " style="margin-top: -10px">Putting the 'fun' in funds</div>
         </q-toolbar-title>
         <q-btn v-if="userSessionStore.isLoggedIn" flat round dense icon="account_circle" label="Logout" size="20px"
-          class="q-mt-lg" @click="logout" />
+               class="q-mt-lg" @click="logout" />
       </q-toolbar>
-      <div class="nav-tabs">
-        <q-btn flat :class="{ active: activeTab === 'overview' }" label="overview" @click="setActiveTab('overview')" />
-        <q-btn flat :class="{ active: activeTab === 'accounts' }" label="Accounts" @click="setActiveTab('accounts')" />
-        <q-btn flat :class="{ active: activeTab === 'users' }" label="users" @click="setActiveTab('users')" />
-        <q-btn flat :class="{ active: activeTab === 'transactions' }" label="transactions"
-          @click="setActiveTab('transactions')" />
-      </div>
+      <q-tabs v-model="activeTab" class="nav-tabs" align="center" dense active-color="bg-grey-8" indicator-color="bg-grey-8">
+        <q-tab name="overview" label="Overview" @click="setActiveTab('overview')" />
+        <q-tab name="accounts" label="Accounts" @click="setActiveTab('accounts')" />
+        <q-tab name="users" label="Users" @click="setActiveTab('users')" />
+        <q-tab name="transactions" label="Transactions" @click="setActiveTab('transactions')" />
+      </q-tabs>
     </q-header>
     <div class="content-wrap">
       <q-page-container>
-        <router-view />
+        <router-view class="q-mb-xl"/>
+        <q-footer  class="bg-grey-8 text-white footer-flex q-pt-lg q-mt-auto">
+          <q-toolbar class="toolbar-center">
+            <div class="footer-content">
+              <q-list inline dense separator class="q-mt-sm">
+                <q-item clickable v-ripple @click="setActiveTab('overview')"><q-item-section>Overview</q-item-section></q-item>
+                <q-item clickable v-ripple @click="setActiveTab('accounts')"><q-item-section>Accounts</q-item-section></q-item>
+                <q-item clickable v-ripple @click="setActiveTab('users')"><q-item-section>Users</q-item-section></q-item>
+                <q-item clickable v-ripple @click="setActiveTab('transactions')"><q-item-section>Transactions</q-item-section></q-item>
+              </q-list>
+              <div class="text-h6">© 2023 BDRJ Bank</div>
+              <div class="text-caption">Contact: info@bdrjbank.com | +31 6810000000</div>
+            </div>
+          </q-toolbar>
+        </q-footer>
       </q-page-container>
-    </div> 
+    </div>
   </q-layout>
 </template>
+
 
 <script>
 import { defineComponent } from 'vue'
@@ -37,12 +51,18 @@ export default defineComponent({
   data() {
     return {
       activeTab: '',  // Default active tab
+      tabRoutes: {
+        overview: '/overview',
+        accounts: '/accounts',
+        users: '/users',
+        transactions: '/transactions'
+      }
     };
   },
   methods: {
     setActiveTab(tab) {
       this.activeTab = tab;
-      this.$router.push(tab); // Change route to the selected tab
+      this.$router.push(this.tabRoutes[tab]); // Navigate to the corresponding route
     },
     logout() {
       this.$router.push({ path: '/' });
@@ -56,6 +76,8 @@ export default defineComponent({
   }
 })
 </script>
+
+
 
 <style scoped>
 .nav-tabs {

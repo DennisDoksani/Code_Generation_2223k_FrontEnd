@@ -6,7 +6,7 @@
           <AccountsTabPanels class="q-ml-lg-lg"></AccountsTabPanels>
         </div>
       </div>
-      <h2>Place for Transactions</h2>
+      <h3>Transactions Overview </h3>
       <TransactionTabPanels class="q-ml-lg-lg"></TransactionTabPanels>
     </div>
     <div v-else>

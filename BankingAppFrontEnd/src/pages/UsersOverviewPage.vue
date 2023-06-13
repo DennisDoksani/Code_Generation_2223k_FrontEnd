@@ -8,12 +8,6 @@
         <div v-if="!isForbidden">
           <div class="q-pa-sm">
             <div class="q-pb-md">
-              <q-btn
-                color="primary"
-                label="Create New Account"
-                @click="$router.push('/accounts/createNewAccount')"
-                class="float-right"
-              ></q-btn>
             </div>
             <div class="q-pt-sm">
               <UsersOverviewTable class="q-pt-sm"
@@ -33,11 +27,11 @@
       </div>
     </div>
   </template>
-  
-  
+
+
   <script>
 import UsersOverviewTable from 'components/users/UsersOverviewTable.vue';
-  
+
   export default {
     name: 'UsersIndex',
     components: { UsersOverviewTable },
@@ -56,10 +50,10 @@ import UsersOverviewTable from 'components/users/UsersOverviewTable.vue';
         this.isForbidden = true;
       },
     },
-  
+
   };
   </script>
-  
+
   <style scoped>
   .loading-container {
     display: flex;
@@ -68,4 +62,4 @@ import UsersOverviewTable from 'components/users/UsersOverviewTable.vue';
     height: 100vh; /* Adjust the height as needed */
   }
   </style>
-  
+

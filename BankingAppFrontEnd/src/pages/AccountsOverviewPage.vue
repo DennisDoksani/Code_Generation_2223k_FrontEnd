@@ -11,7 +11,7 @@
             <q-btn
               color="primary"
               label="Create New Account"
-              @click="$router.push('/accounts/createNewAccount')"
+              @click="$router.push('/users')"
               class="float-right"
             ></q-btn>
           </div>

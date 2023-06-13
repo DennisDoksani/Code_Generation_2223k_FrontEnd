@@ -15,7 +15,7 @@
                             <q-spinner-gears size="150px"></q-spinner-gears>
                         </div>
                         <div v-else-if="currentAccounts.length === 0">
-                            <h4>You dont have any current accounts</h4>
+                            <h4>You dont have any Transactions with current Account</h4>
                         </div>
                         <div v-else>
                             <TransactionCarousalList :accounts="currentAccounts" />
@@ -29,7 +29,7 @@
                             <TransactionCarousalList :accounts="savingsAccounts" />
                         </div>
                         <div v-else>
-                            <h4>You dont have any savings accounts</h4>
+                            <h4>You dont have any Transactions with current Account</h4>
                         </div>
                     </q-tab-panel>
                 </q-tab-panels>
